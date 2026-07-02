@@ -1,0 +1,44 @@
+/* 시리즈 카드 (design.md §4.9) */
+.card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pre);
+  overflow: hidden;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  border-color: var(--moss);
+}
+.cover {
+  aspect-ratio: 16 / 9;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+.body {
+  padding: 0.9rem 1rem 1.1rem;
+}
+.title {
+  margin: 0 0 0.3rem;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.desc {
+  margin: 0 0 0.6rem;
+  color: var(--stone);
+  font-size: var(--text-sm);
+}
+.meta {
+  color: var(--stone);
+  font-size: var(--text-xs);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.dot {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--stone);
+}

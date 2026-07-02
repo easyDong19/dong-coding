@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { getSeriesNav } from "./selectors";
+import { getSeriesNav, getPostsInSeries } from "./selectors";
 import { makePost } from "@/shared/test/factories";
 
 const inSeries = (slug: string, order: number, extra = {}) =>
@@ -49,4 +49,19 @@ test("draft 회차 제외: 1,2(draft),3 → 1의 next는 3", () => {
 
 test("존재하지 않는 slug → null (throw 금지)", () => {
   expect(getSeriesNav("ghost", [inSeries("a", 1)])).toBeNull();
+});
+
+test("order 3,1,2 입력 → 1,2,3 정렬(입력 순서 무관)", () => {
+  const posts = [inSeries("c", 3), inSeries("a", 1), inSeries("b", 2)];
+  expect(getPostsInSeries("s", posts).map((p) => p.order)).toEqual([1, 2, 3]);
+});
+test("getPostsInSeries: draft 제외", () => {
+  const posts = [inSeries("a", 1), inSeries("b", 2, { draft: true })];
+  expect(getPostsInSeries("s", posts).map((p) => p.slug)).toEqual(["a"]);
+});
+test("발행 글 0편 → []", () => {
+  expect(getPostsInSeries("s", [inSeries("a", 1, { draft: true })])).toEqual([]);
+});
+test("getPostsInSeries: 없는 slug → []", () => {
+  expect(getPostsInSeries("ghost", [inSeries("a", 1)])).toEqual([]);
 });

@@ -27,3 +27,9 @@ export function getSeriesNav(postSlug: string, posts: PostLike[]): SeriesNav | n
     next: i < ordered.length - 1 ? ordered[i + 1] : null,
   };
 }
+
+export function getPostsInSeries(seriesSlug: string, posts: PostLike[]): PostLike[] {
+  return posts
+    .filter((p) => !p.draft && p.series === seriesSlug && p.order !== undefined)
+    .sort((a, b) => a.order! - b.order!);
+}

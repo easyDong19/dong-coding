@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { pretendard, jetbrains } from "./fonts";
 import { LeafSymbols } from "@/shared/ui";
 import { themeInitScript } from "@/shared/theme";
+import { Masthead } from "@/widgets/masthead";
+import { Footer } from "@/widgets/footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,7 +28,9 @@ export default function RootLayout({
       </head>
       <body>
         <LeafSymbols />
-        {children}
+        <Masthead />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

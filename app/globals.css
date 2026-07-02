@@ -75,6 +75,13 @@ body {
   }
 }
 
+/* 공통 컬럼 — 목록·헤더·푸터 (design.md §2.3). 읽기 화면은 자체 article-layout 사용 */
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
 a {
   color: var(--moss);
   text-underline-offset: 0.2em;

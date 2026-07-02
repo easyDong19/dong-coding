@@ -1,0 +1,52 @@
+.masthead {
+  padding-top: clamp(3rem, 9vh, 5.5rem);
+  padding-bottom: 2.5rem;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.leaf {
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--moss);
+}
+.brandName {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.sub {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--stone);
+  font-size: var(--text-sm);
+}
+.lede {
+  color: var(--stone);
+  margin: 0.9rem 0 1.4rem;
+  max-width: 34rem;
+}
+.nav {
+  display: flex;
+  gap: 1.4rem;
+  font-size: var(--text-sm);
+  flex-wrap: wrap;
+}
+.nav a {
+  color: var(--stone);
+}
+.nav a[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 500;
+}
+.spring {
+  margin-left: auto;
+}

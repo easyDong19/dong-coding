@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { getPublishedPosts } from "./selectors";
+import { getPublishedPosts, getRelatedPosts } from "./selectors";
 import { makePost } from "@/shared/test/factories";
 
 test("날짜 내림차순", () => {
@@ -29,4 +29,29 @@ test("같은 날짜 → slug 사전순 tie-break (결정적)", () => {
 test("미래 날짜 글도 노출", () => {
   const r = getPublishedPosts([makePost({ slug: "future", date: "2099-01-01" })]);
   expect(r).toHaveLength(1);
+});
+
+const tagged = (slug: string, tags: string[], extra = {}) => makePost({ slug, tags, ...extra });
+
+test("겹치는 태그 수 내림차순", () => {
+  const target = tagged("t", ["a", "b"]);
+  const posts = [target, tagged("x", ["a"]), tagged("y", ["a", "b"])];
+  expect(getRelatedPosts(target, posts).map((p) => p.slug)).toEqual(["y", "x"]);
+});
+test("자기 자신 제외", () => {
+  const target = tagged("t", ["a"]);
+  expect(getRelatedPosts(target, [target]).map((p) => p.slug)).toEqual([]);
+});
+test("매칭 0편 → []", () => {
+  const target = tagged("t", ["a"]);
+  expect(getRelatedPosts(target, [target, tagged("x", ["z"])])).toEqual([]);
+});
+test("대상 글 태그 없음 → []", () => {
+  const target = makePost({ slug: "t", tags: [] });
+  expect(getRelatedPosts(target, [target, tagged("x", ["a"])])).toEqual([]);
+});
+test("같은 시리즈 글도 태그 겹치면 포함(제외 안 함)", () => {
+  const target = tagged("t", ["a"], { series: "s", order: 1 });
+  const sibling = tagged("u", ["a"], { series: "s", order: 2 });
+  expect(getRelatedPosts(target, [target, sibling]).map((p) => p.slug)).toEqual(["u"]);
 });

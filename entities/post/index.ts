@@ -1,1 +1,1 @@
-export { getPublishedPosts } from "./model/selectors";
+export { getPublishedPosts, getRelatedPosts } from "./model/selectors";

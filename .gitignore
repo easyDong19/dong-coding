@@ -45,3 +45,11 @@ next-env.d.ts
 
 # SDD progress ledger (scratch)
 .superpowers/
+
+# agent/tooling artifacts (session-local, not part of the project)
+/.agents/
+/.claude/
+skills-lock.json
+
+# obsidian editor UI state (volatile; keep other .obsidian config)
+dong-docs/.obsidian/workspace.json

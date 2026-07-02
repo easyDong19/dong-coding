@@ -22,4 +22,13 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ## 디자인·기술 — 정본
 - 디자인: `dong-docs/design.md` — **5색 토큰만·Pretendard 한 종·줄기-잎 모티프.** 새 색/폰트/임의 크기 금지.
 - 기술: `dong-docs/prepare/tech-stack.md` — Next 16 SSG · Velite · 경량 FSD · **pnpm 전용**(npm/yarn 금지). 테스트 방침은 `test-plan.md`.
+
+## Skills — 작업별 사용 규약
+스킬은 보조 도구다. **정본은 항상 `dong-docs/`이며, 스킬이 정본 규칙을 덮어쓰지 않는다.**
+- **Velite/스키마·검증** → `zod` (Zod refine 규칙, `tech-stack §3.1.1`).
+- **UI 프리미티브** → `shadcn` (v4 기준 설치, `tech-stack §2.4`). CLI는 프로젝트 `packageManager`대로 `pnpm dlx shadcn@latest`.
+- **컴포넌트·시각 작업** → `frontend-design` (단 색·타입스케일·모티프 정본은 `design.md`).
+- **폴더 구조·경계·public API** → `feature-sliced-design` (단 폴더 규약 정본은 `tech-stack`·`plans/00-roadmap §2`).
+- **Next/React 성능·합성 패턴(참고)** → `vercel-react-best-practices`, `vercel-composition-patterns`.
+- **배포·최적화** → `deploy-to-vercel`, `vercel-optimize` — **이번 플랜(Phase 0~4) 범위 밖**, 후속 배포 단계에서 사용.
 <!-- END:dongcoding-conventions -->

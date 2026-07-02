@@ -1,1 +1,2 @@
-export {}; // Phase 2에서 셀렉터 재노출
+export { getSeriesNav } from "./model/selectors";
+export type { SeriesNav } from "./model/selectors";

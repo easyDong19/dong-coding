@@ -1,1 +1,2 @@
-export {}; // Phase 2에서 셀렉터 재노출
+export { getSeriesNav, getPostsInSeries, groupSeriesForList } from "./model/selectors";
+export type { SeriesNav, SeriesCard } from "./model/selectors";

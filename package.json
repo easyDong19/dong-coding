@@ -7,7 +7,7 @@
     "dev": "run-p dev:*",
     "dev:content": "velite --watch",
     "dev:next": "next dev --turbopack",
-    "build": "velite --clean && next build",
+    "build": "velite --clean --strict && next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",

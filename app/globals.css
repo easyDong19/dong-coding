@@ -140,17 +140,6 @@ video {
   overflow-wrap: anywhere;
 }
 
-/* ===== 모션 — prefers-reduced-motion 가드 안에서만 (design.md §2.6) ===== */
-@media (prefers-reduced-motion: no-preference) {
-  /* 잎 등장(sprout): 노드별 stagger는 사용처(Phase 4 목록)에서 지연을 준다 */
-  @keyframes sprout {
-    from {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-}
+/* 잎 등장(sprout) 모션은 사용처(PostList.module.css)에서 정의한다 —
+   CSS Module이 애니메이션 이름을 스코프하므로 전역 키프레임은 참조되지 않는다.
+   모든 모션은 @media (prefers-reduced-motion: no-preference) 가드 안에서만 (design.md §2.6). */

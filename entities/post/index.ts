@@ -16,4 +16,5 @@ export function getRelated(slug: string) {
 
 // 순수 셀렉터·타입도 계속 재노출(테스트·조합용)
 export * from "./model/selectors";
+export { PostList } from "./ui/PostList";
 export type { Post } from "@/.velite";

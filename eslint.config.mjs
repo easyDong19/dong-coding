@@ -12,6 +12,12 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // 앱 소스가 아닌 것들 — 기획 문서·프로토타입(참고용)·툴링 산출물·빌드물
+    "dong-docs/**",
+    ".agents/**",
+    ".claude/**",
+    ".superpowers/**",
+    ".velite/**",
   ]),
 ]);
 

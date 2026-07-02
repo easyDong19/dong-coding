@@ -92,6 +92,7 @@ export default {
     'type-empty': [2, 'never'],               // 타입 필수
     'subject-empty': [2, 'never'],            // 제목 필수
     'subject-full-stop': [2, 'never', '.'],   // 제목 끝 마침표 금지
+    'subject-case': [0],                      // case 강제 해제 — 한국어 제목의 영어 약어(CI·PR·RSS) 허용
     'header-max-length': [2, 'always', 72],   // 헤더 72자 이내
     // 스코프 안 씀 → config-conventional 기본값이 스코프를 강제하지 않으므로 별도 규칙 불필요
   },

@@ -1,0 +1,9 @@
+/* eyebrow — 서체 전환 없이 색(moss)·굵기(500)·자간으로 구분 (design.md §2.2).
+   자간은 렌더 검증된 프로토타입 값(0.01em)을 따른다 (design.md §2.2 표). */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--moss);
+  font-size: var(--text-sm);
+}

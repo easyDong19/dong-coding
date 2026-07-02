@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pretendard, jetbrains } from "./fonts";
+import { LeafSymbols } from "@/shared/ui";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable} ${jetbrains.variable}`}>
-      <body>{children}</body>
+      <body>
+        <LeafSymbols />
+        {children}
+      </body>
     </html>
   );
 }

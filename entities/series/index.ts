@@ -1,2 +1,2 @@
-export { getSeriesNav, getPostsInSeries } from "./model/selectors";
-export type { SeriesNav } from "./model/selectors";
+export { getSeriesNav, getPostsInSeries, groupSeriesForList } from "./model/selectors";
+export type { SeriesNav, SeriesCard } from "./model/selectors";

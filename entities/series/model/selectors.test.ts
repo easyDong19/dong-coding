@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import { getSeriesNav, getPostsInSeries } from "./selectors";
-import { makePost } from "@/shared/test/factories";
+import { getSeriesNav, getPostsInSeries, groupSeriesForList } from "./selectors";
+import { makePost, makeSeries } from "@/shared/test/factories";
 
 const inSeries = (slug: string, order: number, extra = {}) =>
   makePost({ slug, series: "s", order, ...extra });
@@ -64,4 +64,45 @@ test("발행 글 0편 → []", () => {
 });
 test("getPostsInSeries: 없는 slug → []", () => {
   expect(getPostsInSeries("ghost", [inSeries("a", 1)])).toEqual([]);
+});
+
+test("complete 혼재 → 진행/완결 분리", () => {
+  const series = [makeSeries({ slug: "s1" }), makeSeries({ slug: "s2", complete: true })];
+  const posts = [
+    makePost({ slug: "a", series: "s1", order: 1 }),
+    makePost({ slug: "b", series: "s2", order: 1 }),
+  ];
+  const g = groupSeriesForList(series, posts);
+  expect(g.ongoing.map((s) => s.slug)).toEqual(["s1"]);
+  expect(g.complete.map((s) => s.slug)).toEqual(["s2"]);
+});
+
+test("그룹 내 최신 활동순 정렬", () => {
+  const series = [makeSeries({ slug: "old" }), makeSeries({ slug: "new" })];
+  const posts = [
+    makePost({ slug: "a", series: "old", order: 1, date: "2026-01-01" }),
+    makePost({ slug: "b", series: "new", order: 1, date: "2026-05-01" }),
+  ];
+  expect(groupSeriesForList(series, posts).ongoing.map((s) => s.slug)).toEqual(["new", "old"]);
+});
+
+test("발행 글 0편 시리즈 숨김", () => {
+  const series = [makeSeries({ slug: "empty" })];
+  const posts = [makePost({ slug: "a", series: "empty", order: 1, draft: true })];
+  expect(groupSeriesForList(series, posts).ongoing).toEqual([]);
+});
+
+test("완결 시리즈 0개 → complete 그룹 []", () => {
+  const series = [makeSeries({ slug: "s1" })];
+  const posts = [makePost({ slug: "a", series: "s1", order: 1 })];
+  expect(groupSeriesForList(series, posts).complete).toEqual([]);
+});
+
+test("N편 카운트는 draft 제외", () => {
+  const series = [makeSeries({ slug: "s1" })];
+  const posts = [
+    makePost({ slug: "a", series: "s1", order: 1 }),
+    makePost({ slug: "b", series: "s1", order: 2, draft: true }),
+  ];
+  expect(groupSeriesForList(series, posts).ongoing[0].count).toBe(1);
 });

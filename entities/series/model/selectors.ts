@@ -1,14 +1,17 @@
 import type { PostLike, SeriesLike } from "@/shared/test/factories";
 
-export type SeriesNav = {
+export type SeriesNav<T = PostLike> = {
   series: string;
   index: number;
   total: number;
-  prev: PostLike | null;
-  next: PostLike | null;
+  prev: T | null;
+  next: T | null;
 };
 
-export function getSeriesNav(postSlug: string, posts: PostLike[]): SeriesNav | null {
+export function getSeriesNav<T extends PostLike>(
+  postSlug: string,
+  posts: T[],
+): SeriesNav<T> | null {
   const target = posts.find((p) => p.slug === postSlug);
   if (!target || !target.series || target.draft) return null;
 
@@ -28,7 +31,7 @@ export function getSeriesNav(postSlug: string, posts: PostLike[]): SeriesNav | n
   };
 }
 
-export function getPostsInSeries(seriesSlug: string, posts: PostLike[]): PostLike[] {
+export function getPostsInSeries<T extends PostLike>(seriesSlug: string, posts: T[]): T[] {
   return posts
     .filter((p) => !p.draft && p.series === seriesSlug && p.order !== undefined)
     .sort((a, b) => a.order! - b.order!);

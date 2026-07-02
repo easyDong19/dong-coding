@@ -1,6 +1,6 @@
 import type { PostLike } from "@/shared/test/factories";
 
-export function getPublishedPosts(posts: PostLike[]): PostLike[] {
+export function getPublishedPosts<T extends PostLike>(posts: T[]): T[] {
   return posts
     .filter((p) => !p.draft)
     .slice()
@@ -13,7 +13,7 @@ export function getPublishedPosts(posts: PostLike[]): PostLike[] {
     );
 }
 
-export function getRelatedPosts(target: PostLike, posts: PostLike[], limit = 5): PostLike[] {
+export function getRelatedPosts<T extends PostLike>(target: T, posts: T[], limit = 5): T[] {
   const targetTags = new Set(target.tags ?? []);
   if (targetTags.size === 0) return [];
 

@@ -3,7 +3,9 @@ export type PostLike = {
   title: string;
   date: string;
   draft: boolean;
-  tags: string[];
+  // Velite Post는 tags가 optional(s.array().optional()) — 계약을 그에 맞춘다.
+  // 셀렉터는 `tags ?? []`로 방어하므로 없어도 안전하다.
+  tags?: string[];
   series?: string;
   order?: number;
   description?: string;

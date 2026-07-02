@@ -1,0 +1,148 @@
+/* 읽기 레이아웃 — reading 컬럼 중앙, 양옆 여백(추후 목차 자리) (design.md §4.4) */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr min(var(--reading), 100%) 1fr;
+  column-gap: 1.5rem;
+  padding-inline: var(--gutter);
+}
+.article {
+  grid-column: 2;
+  padding-bottom: 2rem;
+}
+@media (max-width: 480px) {
+  .layout {
+    column-gap: 0;
+  }
+}
+
+.tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.h1 {
+  font-size: clamp(var(--text-2xl), 5vw, var(--text-3xl));
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  margin: 0.9rem 0 0.6rem;
+}
+@media (max-width: 480px) {
+  .h1 {
+    line-height: 1.25;
+  }
+}
+.byline {
+  color: var(--stone);
+  font-size: var(--text-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.55rem;
+  align-items: center;
+  margin-bottom: 1.6rem;
+}
+.dot {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--stone);
+}
+.hero {
+  width: 100%;
+  border-radius: var(--radius-pre);
+  border: 1px solid var(--line);
+  margin: 1.2rem 0 2rem;
+  display: block;
+}
+
+/* ===== MDX 본문 (design.md §4.4) — 코드 하이라이트·KaTeX는 Task 4.9 ===== */
+.body p {
+  margin: 1.1rem 0;
+}
+.body h2 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  margin: 2.6rem 0 0.8rem;
+  scroll-margin-top: 2rem;
+}
+.body h2::before {
+  content: "¶";
+  color: var(--moss);
+  margin-right: 0.5rem;
+  font-weight: 400;
+}
+.body h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 2rem 0 0.6rem;
+}
+.body blockquote {
+  border-left: 2px solid var(--moss);
+  margin: 1.5rem 0;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  color: var(--stone);
+}
+/* 잎 모양 불릿 (design.md §3·§4.4) */
+.body ul {
+  list-style: none;
+  padding-left: 1.4em;
+}
+.body ul li {
+  position: relative;
+  margin: 0.4em 0;
+}
+.body ul li::before {
+  content: "";
+  position: absolute;
+  left: -1.1em;
+  top: 0.62em;
+  width: 0.5em;
+  height: 0.5em;
+  background: var(--moss);
+  border-radius: 50% 0 50% 50%;
+  transform: rotate(45deg);
+}
+.body ol {
+  padding-left: 1.4em;
+}
+.body figure {
+  margin: 1.8rem 0;
+}
+.body figure img {
+  width: 100%;
+  border-radius: var(--radius-pre);
+  border: 1px solid var(--line);
+  display: block;
+}
+.body figcaption {
+  color: var(--stone);
+  font-size: var(--text-sm);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.body code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+.body p code,
+.body li code {
+  background: var(--panel);
+  border-radius: var(--radius-code);
+  padding: 0.08em 0.35em;
+}
+.body pre {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pre);
+  padding: 1rem 1.1rem;
+  overflow: auto;
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+.body pre code {
+  background: none;
+  padding: 0;
+}

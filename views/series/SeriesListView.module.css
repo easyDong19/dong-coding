@@ -1,0 +1,11 @@
+.group {
+  margin-bottom: 2.5rem;
+}
+.groupHead {
+  margin: 0 0 1rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1.2rem;
+}

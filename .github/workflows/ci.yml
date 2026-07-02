@@ -25,6 +25,11 @@ jobs:
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
+      # .velite는 gitignore이고 entities가 @/.velite를 import하므로
+      # lint/typecheck 전에 콘텐츠 타입을 먼저 생성한다.
+      - name: Generate content (velite)
+        run: pnpm exec velite --strict
+
       - name: Lint
         run: pnpm lint
 

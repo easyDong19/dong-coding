@@ -1,0 +1,92 @@
+/* ProfileHeader (design.md §4.10) */
+.profile {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 1.5rem 0 2.5rem;
+  flex-wrap: wrap;
+}
+.avatar {
+  width: 104px;
+  height: 104px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  flex: 0 0 auto;
+}
+.name {
+  margin: 0 0 0.3rem;
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.role {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--stone);
+}
+
+/* Timeline — 줄기-잎 재사용 (design.md §4.10) */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.4rem;
+  position: relative;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.28rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 1px;
+  background: var(--line);
+}
+.timelineItem {
+  position: relative;
+  padding: 0.5rem 0;
+}
+.timelineItem::before {
+  content: "";
+  position: absolute;
+  left: -1.18rem;
+  top: 0.95rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--moss);
+  border-radius: 50% 0 50% 50%;
+  transform: rotate(45deg);
+}
+.when {
+  color: var(--stone);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.6rem;
+}
+
+/* Projects (design.md §4.10) */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+.project {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pre);
+  padding: 1rem;
+  color: inherit;
+  display: block;
+}
+.project:hover {
+  border-color: var(--moss);
+}
+.projectTitle {
+  margin: 0 0 0.3rem;
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+.projectDesc {
+  margin: 0;
+  color: var(--stone);
+  font-size: var(--text-sm);
+}

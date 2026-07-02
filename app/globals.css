@@ -75,6 +75,13 @@ body {
   }
 }
 
+/* 공통 컬럼 — 목록·헤더·푸터 (design.md §2.3). 읽기 화면은 자체 article-layout 사용 */
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
 a {
   color: var(--moss);
   text-underline-offset: 0.2em;
@@ -133,17 +140,25 @@ video {
   overflow-wrap: anywhere;
 }
 
-/* ===== 모션 — prefers-reduced-motion 가드 안에서만 (design.md §2.6) ===== */
-@media (prefers-reduced-motion: no-preference) {
-  /* 잎 등장(sprout): 노드별 stagger는 사용처(Phase 4 목록)에서 지연을 준다 */
-  @keyframes sprout {
-    from {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
+/* ===== 코드 하이라이트 — shiki dual 테마를 5색에 매핑 (design.md §4.4, tech-stack §4.1) =====
+   rehype-pretty-code가 토큰마다 --shiki-light/--shiki-dark 변수를 심는다.
+   커스텀 테마가 이미 moss/stone/ink만 쓰므로 여기선 모드 스위칭만. */
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+  background-color: transparent;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .shiki,
+  :root:not([data-theme="light"]) .shiki span {
+    color: var(--shiki-dark);
   }
 }
+:root[data-theme="dark"] .shiki,
+:root[data-theme="dark"] .shiki span {
+  color: var(--shiki-dark);
+}
+
+/* 잎 등장(sprout) 모션은 사용처(PostList.module.css)에서 정의한다 —
+   CSS Module이 애니메이션 이름을 스코프하므로 전역 키프레임은 참조되지 않는다.
+   모든 모션은 @media (prefers-reduced-motion: no-preference) 가드 안에서만 (design.md §2.6). */

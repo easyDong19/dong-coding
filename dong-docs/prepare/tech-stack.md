@@ -41,7 +41,7 @@
 | 다크모드 | **`light-dark()` CSS** + 쿠키 기반 SSR | 확정 (design.md 준수) |
 | RSS 피드 | **`app/feed.xml` Route Handler** + `feed` 패키지 (요약+링크) | 확정 |
 | OG 이미지 | **`opengraph-image.tsx` + `next/og`** (커버 우선 / 텍스트 폴백) | 확정 |
-| 품질 | **ESLint 9 flat** + Prettier (lefthook 선택) | 확정 / 선택 |
+| 품질 | **ESLint 9 flat** + Prettier · **husky + commitlint**(커밋 메시지 lint) | 확정 |
 | 배포 | **Vercel** (SSG, `images.unoptimized`) | 확정 |
 
 ---
@@ -270,10 +270,13 @@ prepare: ({ posts, series }) => {
 
 ### 6.3 린트·포맷 → **ESLint 9 flat + Prettier**
 - **왜:** `next lint`가 Next 16에서 제거됨 → `eslint.config.mjs` 직접 구성. `lint` 스크립트는 `eslint .`.
-- **lefthook + lint-staged:** pre-commit 훅. 1인 워크플로엔 **선택 사항**으로 두되, 커밋 위생을 위해 권장.
+- **훅 러너 = husky (확정).** pre-commit(`lint-staged`로 staged 파일 ESLint/Prettier)과 commit-msg(`commitlint`로 커밋 메시지 형식 검증)를 **husky 하나로** 건다. 1인 워크플로라 pre-commit 포맷팅은 **선택**이지만, 커밋 메시지 lint는 **채택** — 히스토리 일관성 확보.
+  - 커밋 형식·type 목록·commitlint 설정·셋업 절차는 **`commit-convention.md`** 에서 확정(정본). 여기선 도구 선택만 기술.
 
 ### 6.4 배포 → **Vercel (SSG)**
 - main push → 자동 재배포. CI(`.github/workflows/ci.yml`)는 **검사만**(build → lint → typecheck, Node 22), 배포는 Vercel 네이티브.
+- **브랜치 전략 = GitHub Flow (확정).** `main`=프로덕션 자동배포, 그 외 브랜치=프리뷰 배포. `main` 보호(직접 push 금지) + **squash merge**. 상세·설정 절차는 **`branch-strategy.md`** 가 정본.
+- **커밋 메시지 강제(정본 게이트) = PR 제목 lint.** 스쿼시 시 PR 제목이 `main` 커밋이 되므로, `commitlint.yml`(`amannn/action-semantic-pull-request`)을 **required status check**로 걸어 형식 미준수 PR의 머지를 차단한다. 로컬 husky `commit-msg`는 조기 경고 계층(`commit-convention.md §6`).
 - **package.json 스크립트 골격:**
   ```json
   {

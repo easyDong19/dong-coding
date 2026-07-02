@@ -140,6 +140,25 @@ video {
   overflow-wrap: anywhere;
 }
 
+/* ===== 코드 하이라이트 — shiki dual 테마를 5색에 매핑 (design.md §4.4, tech-stack §4.1) =====
+   rehype-pretty-code가 토큰마다 --shiki-light/--shiki-dark 변수를 심는다.
+   커스텀 테마가 이미 moss/stone/ink만 쓰므로 여기선 모드 스위칭만. */
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+  background-color: transparent;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .shiki,
+  :root:not([data-theme="light"]) .shiki span {
+    color: var(--shiki-dark);
+  }
+}
+:root[data-theme="dark"] .shiki,
+:root[data-theme="dark"] .shiki span {
+  color: var(--shiki-dark);
+}
+
 /* 잎 등장(sprout) 모션은 사용처(PostList.module.css)에서 정의한다 —
    CSS Module이 애니메이션 이름을 스코프하므로 전역 키프레임은 참조되지 않는다.
    모든 모션은 @media (prefers-reduced-motion: no-preference) 가드 안에서만 (design.md §2.6). */

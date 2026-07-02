@@ -1,5 +1,40 @@
 import { defineConfig, defineCollection, s } from "velite";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import remarkGfm from "remark-gfm";
 import { validateSeriesIntegrity } from "./content/lib/validate-series";
+
+// 코드 하이라이트를 design.md 5색에 가두는 커스텀 shiki 테마 (3역할: 키워드=moss·주석=stone·기본=ink)
+function palette(fg: string, moss: string, stone: string) {
+  return {
+    name: "dongcoding",
+    type: fg === "#232A22" ? "light" : "dark",
+    colors: { "editor.background": "#00000000", "editor.foreground": fg },
+    settings: [
+      { settings: { foreground: fg } },
+      { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: stone, fontStyle: "italic" } },
+      {
+        scope: [
+          "keyword",
+          "storage",
+          "storage.type",
+          "keyword.control",
+          "keyword.operator",
+          "constant.language",
+          "support.type",
+          "support.class",
+          "entity.name.tag",
+        ],
+        settings: { foreground: moss },
+      },
+    ],
+  } as const;
+}
+const codeThemeLight = palette("#232A22", "#4F6442", "#7C8275");
+const codeThemeDark = palette("#E7EADF", "#9BBE84", "#9AA08F");
 
 const posts = defineCollection({
   name: "Post",
@@ -55,6 +90,18 @@ export default defineConfig({
   // 스키마 층 위반(refine·타입)은 CLI `--strict` 플래그로 빌드를 실패시킨다.
   // config의 strict는 CLI 기본값(false)에 덮어써져 무효이므로 여기 두지 않는다.
   collections: { posts, series, about },
+  mdx: {
+    remarkPlugins: [remarkGfm, remarkMath],
+    rehypePlugins: [
+      rehypeSlug,
+      [rehypeAutolinkHeadings, { behavior: "wrap" }],
+      [
+        rehypePrettyCode,
+        { theme: { light: codeThemeLight, dark: codeThemeDark }, keepBackground: false, defaultColor: false },
+      ],
+      rehypeKatex,
+    ],
+  },
   prepare: ({ posts, series }) => {
     // 교차 참조 무결성·order 중복은 여기서 throw로 빌드를 막는다 (tech-stack §3.1)
     validateSeriesIntegrity({ posts, series });

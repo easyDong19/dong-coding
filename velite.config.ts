@@ -1,4 +1,5 @@
 import { defineConfig, defineCollection, s } from "velite";
+import { validateSeriesIntegrity } from "./content/lib/validate-series";
 
 const posts = defineCollection({
   name: "Post",
@@ -40,8 +41,24 @@ const series = defineCollection({
 });
 
 export default defineConfig({
-  // 빌드 게이트(스키마 위반 시 실패)는 CLI `--strict` 플래그로 켠다.
+  // 스키마 층 위반(refine·타입)은 CLI `--strict` 플래그로 빌드를 실패시킨다.
   // config의 strict는 CLI 기본값(false)에 덮어써져 무효이므로 여기 두지 않는다.
   collections: { posts, series },
-  // prepare 훅은 Task 1.3에서 연결
+  prepare: ({ posts, series }) => {
+    // 교차 참조 무결성·order 중복은 여기서 throw로 빌드를 막는다 (tech-stack §3.1)
+    validateSeriesIntegrity({ posts, series });
+    // (c) 연속성 경고: 발행 글 기준 1..N 빈틈이면 console.warn (빌드는 계속)
+    for (const s of series) {
+      const orders = posts
+        .filter((p) => !p.draft && p.series === s.slug)
+        .map((p) => p.order!)
+        .sort((a, b) => a - b);
+      for (let i = 0; i < orders.length; i++) {
+        if (orders[i] !== i + 1) {
+          console.warn(`[series:${s.slug}] order 빈틈/불연속: ${orders.join(",")}`);
+          break;
+        }
+      }
+    }
+  },
 });

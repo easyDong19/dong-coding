@@ -1,0 +1,17 @@
+/* 테마 토글 — pill 테두리, stone→ink hover (design.md §4.1 masthead) */
+.toggle {
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--stone);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.toggle:hover {
+  color: var(--ink);
+}

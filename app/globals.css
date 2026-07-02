@@ -1,19 +1,149 @@
 @import "tailwindcss";
 
+/* ===== Tailwind 인식 토큰 (design.md §2.2~2.6) =====
+   여기 선언한 값은 :root CSS 변수로 방출되며 var(--…)로 직접 참조한다.
+   폰트는 next/font 변수(--font-pretendard/--font-jetbrains)를 가리킨다 —
+   이름을 분리해 순환 참조를 피한다. */
+@theme {
+  --font-sans: var(--font-pretendard), "Pretendard", system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+
+  /* 타입 스케일 — 정규화된 7단계 (design.md §2.2) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.25rem;
+
+  /* 레이아웃 (design.md §2.3) — ≥768px에서 --measure 48rem (아래 미디어쿼리) */
+  --measure: 39rem;
+  --reading: 43rem;
+  --gutter: clamp(1.25rem, 5vw, 2.5rem);
+
+  /* 모서리 반경 (design.md §2.4) — 확대 시 흐트러지면 안 되는 값이라 px */
+  --radius-code: 5px;
+  --radius-pre: 10px;
+  --radius-pill: 999px;
+  --radius-focus: 2px;
+
+  /* 모션 (design.md §2.6) */
+  --ease-sprout: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ===== 브랜드 5색 + 투명도 파생 (design.md §2.1) =====
+   토큰 하나에 라이트/다크 두 값을 넣고 color-scheme로 스위칭한다. */
 :root {
   color-scheme: light dark;
-  --paper: light-dark(#F4F5EE, #14180F);
-  --ink:   light-dark(#232A22, #E7EADF);
-  --moss:  light-dark(#4F6442, #9BBE84);
-  --stone: light-dark(#7C8275, #9AA08F);
-  --line:  light-dark(#E2E3DA, #2B3226);
-  --panel:     light-dark(rgba(35,42,34,.045), rgba(231,234,223,.05));
-  --moss-soft: light-dark(rgba(79,100,66,.10), rgba(155,190,132,.14));
+  --paper: light-dark(#f4f5ee, #14180f);
+  --ink: light-dark(#232a22, #e7eadf);
+  --moss: light-dark(#4f6442, #9bbe84);
+  --stone: light-dark(#7c8275, #9aa08f);
+  --line: light-dark(#e2e3da, #2b3226);
+  --panel: light-dark(rgba(35, 42, 34, 0.045), rgba(231, 234, 223, 0.05));
+  --moss-soft: light-dark(rgba(79, 100, 66, 0.1), rgba(155, 190, 132, 0.14));
 }
-:root[data-theme="light"] { color-scheme: light; }
-:root[data-theme="dark"]  { color-scheme: dark; }
+/* 수동 토글: color-scheme만 바꾸면 light-dark()가 따라감 */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { max-width: 100vw; overflow-x: hidden; }
-body { background: var(--paper); color: var(--ink); }
-a { color: inherit; text-decoration: none; }
+/* ===== Base ===== */
+* {
+  box-sizing: border-box;
+}
+/* 스크롤바 공간 항상 예약 → 레이아웃 밀림(jank) 방지 (design.md §2.3) */
+html {
+  scrollbar-gutter: stable;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.78;
+  letter-spacing: -0.005em;
+}
+@media (min-width: 768px) {
+  :root {
+    --measure: 48rem;
+  }
+}
+
+a {
+  color: var(--moss);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+/* 포커스 링 — moss 2px + offset (design.md §2.5, §5) */
+:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
+  border-radius: var(--radius-focus);
+}
+
+/* 날짜 등 숫자 정렬 (design.md §2.2) */
+time,
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 잎 모양 불릿 — 본문 리스트 (design.md §3) */
+.leaf-bullet {
+  list-style: none;
+  padding-left: 1.4em;
+}
+.leaf-bullet li {
+  position: relative;
+  margin: 0.4em 0;
+}
+.leaf-bullet li::before {
+  content: "";
+  position: absolute;
+  left: -1.1em;
+  top: 0.62em;
+  width: 0.5em;
+  height: 0.5em;
+  background: var(--moss);
+  border-radius: 50% 0 50% 50%;
+  transform: rotate(45deg);
+}
+
+/* 가로 오버플로 방지 — 긴 요소는 자기 안에서 스크롤 (design.md §2.7) */
+pre,
+table {
+  overflow-x: auto;
+}
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+img,
+figure,
+video {
+  max-width: 100%;
+}
+:where(p, li, h1, h2, h3, blockquote, figcaption) {
+  overflow-wrap: anywhere;
+}
+
+/* ===== 모션 — prefers-reduced-motion 가드 안에서만 (design.md §2.6) ===== */
+@media (prefers-reduced-motion: no-preference) {
+  /* 잎 등장(sprout): 노드별 stagger는 사용처(Phase 4 목록)에서 지연을 준다 */
+  @keyframes sprout {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

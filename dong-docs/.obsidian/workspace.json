@@ -1,0 +1,210 @@
+{
+  "main": {
+    "id": "9d360b184153317b",
+    "type": "split",
+    "children": [
+      {
+        "id": "aa633795569b8384",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "aee80b37afb55488",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "plans/00-roadmap.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "00-roadmap"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d082a687d044c8c7",
+    "type": "split",
+    "children": [
+      {
+        "id": "fb0f13e4ad90dd18",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "150c736bb769b4aa",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "f210c525dbd10586",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          },
+          {
+            "id": "43bdbc0d74651e8a",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "북마크"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1913de7d28d3969f",
+    "type": "split",
+    "children": [
+      {
+        "id": "0e0b34259665b7f7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "60fdf536165cd665",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "plans/00-roadmap.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "00-roadmap 의 백링크"
+            }
+          },
+          {
+            "id": "8b14fc5ecd361731",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "plans/00-roadmap.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "00-roadmap 의 나가는 링크"
+            }
+          },
+          {
+            "id": "129bcb07dc9b1809",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "태그"
+            }
+          },
+          {
+            "id": "aaa2e4161a29d58d",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "모든 속성"
+            }
+          },
+          {
+            "id": "41f2f154123e5b5f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "plans/00-roadmap.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "00-roadmap 의 개요"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false,
+      "bases:새 베이스 생성하기": false
+    }
+  },
+  "active": "aee80b37afb55488",
+  "lastOpenFiles": [
+    "prepare/content-plan.md",
+    "plans/phase-4-pages.md",
+    "plans/phase-3-design-system.md",
+    "prototype/404.html",
+    "prototype/about.html",
+    "prototype/article-monad-1.html",
+    "plans/phase-2-entities-selectors.md",
+    "prototype/article-yagni.html",
+    "prototype/article-math.html",
+    "prototype/article-claude-3.html",
+    "prototype/article-claude-2.html",
+    "prototype/article-claude-1.html",
+    "prototype/series-monad.html",
+    "plans/phase-1-content-pipeline.md",
+    "prototype/series-claude.html",
+    "plans/phase-0-setup.md",
+    "plans/00-roadmap.md",
+    "prepare/tech-stack.md",
+    "prepare/pages-plan.md",
+    "prepare/test-plan.md",
+    "design.md"
+  ]
+}

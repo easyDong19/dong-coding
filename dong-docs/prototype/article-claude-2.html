@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light dark" />
+<title>클로드코드 입문(2) — 스킬과 서브에이전트 · dongCoding</title>
+<script>(function(){try{var t=localStorage.getItem('dc-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="posts">
+<div class="viewport"><div class="frame">
+  <div id="site-header"></div>
+  <main>
+    <div class="sep"><span>읽기 화면</span></div>
+    <div class="article-layout wrap" style="max-width:64rem">
+      <article>
+        <a class="post-tag" href="posts.html">claude-code</a>
+        <h1>클로드코드 입문(2) — 스킬과 서브에이전트</h1>
+        <div class="byline"><span>dongCoding</span><span class="dot"></span><time>2026.06.27</time><span class="dot"></span><span>11분</span><span class="dot"></span><span class="views">👁 640</span></div>
+        <p class="article-lede">반복을 스킬로 접고, 병렬을 서브에이전트로 푼다. 한 번 잘 접어두면 다음부터는 펼치기만 하면 된다.</p>
+        <h2 id="skill">스킬로 반복을 접기</h2>
+        <p>매번 같은 지시를 반복하는 대신, 자주 쓰는 절차를 스킬로 정의한다.</p>
+        <pre><code><span class="c-com"># 스킬 호출</span>
+<span class="c-key">claude</span> <span class="c-str">"/deploy staging"</span></code></pre>
+        <h2 id="subagent">서브에이전트로 병렬 풀기</h2>
+        <p>독립적인 작업은 서브에이전트에게 동시에 맡긴다.</p>
+        <ul class="leaf-bullet">
+          <li>탐색과 구현을 분리</li>
+          <li>결과만 회수하고 컨텍스트는 격리</li>
+        </ul>
+
+        <!-- 중간 회차: 이전/다음 모두 존재 -->
+        <nav class="series-nav" aria-label="시리즈 네비게이션">
+          <div class="head"><a class="k" href="series-claude.html">클로드코드 입문</a><span class="prog">2 / 3</span></div>
+          <div class="row">
+            <a class="card" href="article-claude-1.html"><span class="dir">← 이전</span><br/>(1) 설치와 첫 대화</a>
+            <a class="card next" href="article-claude-3.html"><span class="dir">다음 →</span><br/>(3) 워크플로우와 자동화</a>
+          </div>
+        </nav>
+        <section class="related" aria-label="관련 포스팅">
+          <span class="k">관련 포스팅</span>
+          <ul><li><a href="article-claude-1.html">클로드코드 입문(1) — 설치와 첫 대화</a> <span class="m">· claude-code</span></li></ul>
+        </section>
+      </article>
+      <aside class="toc" aria-label="목차">
+        <span class="k">목차</span>
+        <ol><li><a href="#skill" data-tgt="skill">스킬로 반복을 접기</a></li><li><a href="#subagent" data-tgt="subagent">서브에이전트로 병렬 풀기</a></li></ol>
+      </aside>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+</div></div>
+<script src="app.js"></script>
+</body>
+</html>

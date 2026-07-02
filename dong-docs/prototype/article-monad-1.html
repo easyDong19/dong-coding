@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light dark" />
+<title>타입스크립트 모나드(1) — Option과 안전한 부재 · dongCoding</title>
+<script>(function(){try{var t=localStorage.getItem('dc-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="posts">
+<div class="viewport"><div class="frame">
+  <div id="site-header"></div>
+  <main>
+    <div class="sep"><span>읽기 화면</span></div>
+    <div class="article-layout wrap" style="max-width:64rem">
+      <article>
+        <a class="post-tag" href="posts.html">typescript</a>
+        <h1>타입스크립트 모나드(1) — Option과 안전한 부재</h1>
+        <div class="byline"><span>dongCoding</span><span class="dot"></span><time>2026.01.12</time><span class="dot"></span><span>8분</span><span class="dot"></span><span class="views">👁 1,551</span></div>
+        <p class="article-lede">null은 사고를 부르는 값이다. 부재를 값이 아니라 타입으로 다루면, 컴파일러가 대신 조심해준다.</p>
+        <h2 id="option">Option이라는 상자</h2>
+        <p>값이 있을 수도, 없을 수도 있는 상태를 하나의 타입으로 감싼다.</p>
+        <pre><code><span class="c-key">type</span> Option&lt;T&gt; = { <span class="c-key">tag</span>: <span class="c-str">'some'</span>, value: T } | { <span class="c-key">tag</span>: <span class="c-str">'none'</span> }</code></pre>
+        <h2 id="why">왜 상자에 넣나</h2>
+        <p>부재를 명시적으로 만들면, 처리하지 않은 <code>none</code> 경로가 타입 에러로 드러난다.</p>
+
+        <!-- 완결 시리즈 안에서도 회차 네비게이션은 동일하게 동작 (첫 회차 → 이전 빈칸) -->
+        <nav class="series-nav" aria-label="시리즈 네비게이션">
+          <div class="head"><a class="k" href="series-monad.html">타입스크립트 모나드</a><span class="prog">1 / 4</span></div>
+          <div class="row"><span></span><a class="card next" href="article-monad-1.html"><span class="dir">다음 →</span><br/>(2) Result로 에러 다루기</a></div>
+        </nav>
+      </article>
+      <aside class="toc" aria-label="목차">
+        <span class="k">목차</span>
+        <ol><li><a href="#option" data-tgt="option">Option이라는 상자</a></li><li><a href="#why" data-tgt="why">왜 상자에 넣나</a></li></ol>
+      </aside>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+</div></div>
+<script src="app.js"></script>
+</body>
+</html>

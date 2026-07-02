@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light dark" />
+<title>정적 사이트에서 수식을 다루는 법 · dongCoding</title>
+<script>(function(){try{var t=localStorage.getItem('dc-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="posts">
+<div class="viewport"><div class="frame">
+  <div id="site-header"></div>
+  <main>
+    <div class="sep"><span>읽기 화면</span></div>
+    <div class="article-layout wrap" style="max-width:64rem">
+      <article>
+        <a class="post-tag" href="posts.html">math</a>
+        <h1>정적 사이트에서 수식을 다루는 법</h1>
+        <div class="byline"><span>dongCoding</span><span class="dot"></span><time>2026.05.30</time><span class="dot"></span><span>6분</span><span class="dot"></span><span class="views">👁 902</span></div>
+        <p class="article-lede">런타임에 수식을 조판하면 화면이 늦게 튄다. 빌드타임에 굳히면 방문자는 이미 완성된 수식을 만난다.</p>
+        <h2 id="why">왜 빌드타임인가</h2>
+        <p>인라인 수식 $a^2 + b^2 = c^2$ 는 문장 흐름을 끊지 않는다. 반면 display 수식은 자기 블록 안에서 가로 스크롤을 허용해 페이지 넘침을 막는다.</p>
+        <p style="text-align:center">$$ \int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi} $$</p>
+        <h2 id="how">어떻게 굳히나</h2>
+        <p>KaTeX를 빌드 단계에서 실행해 HTML로 박제한다. 방문자 브라우저는 조판 계산을 하지 않는다.</p>
+        <blockquote>수식은 콘텐츠에 복무한다 — 읽기를 도우므로 환영이다.</blockquote>
+
+        <!-- 시리즈 아님 → series-nav 미표시. 관련 글은 존재 -->
+        <section class="related" aria-label="관련 포스팅">
+          <span class="k">관련 포스팅</span>
+          <ul><li><a href="article-claude-1.html">클로드코드 입문(1) — 설치와 첫 대화</a> <span class="m">· claude-code</span></li></ul>
+        </section>
+      </article>
+      <aside class="toc" aria-label="목차">
+        <span class="k">목차</span>
+        <ol><li><a href="#why" data-tgt="why">왜 빌드타임인가</a></li><li><a href="#how" data-tgt="how">어떻게 굳히나</a></li></ol>
+      </aside>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+</div></div>
+<script src="app.js"></script>
+</body>
+</html>

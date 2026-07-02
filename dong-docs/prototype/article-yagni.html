@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light dark" />
+<title>덜 만드는 용기에 대하여 · dongCoding</title>
+<script>(function(){try{var t=localStorage.getItem('dc-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="posts">
+<div class="viewport"><div class="frame">
+  <div id="site-header"></div>
+  <main>
+    <div class="sep"><span>읽기 화면</span></div>
+    <div class="article-layout wrap" style="max-width:64rem">
+      <article>
+        <a class="post-tag" href="posts.html">에세이</a>
+        <h1>덜 만드는 용기에 대하여</h1>
+        <!-- 조회수 읽기 실패 → 숫자 숨김(0·에러 표기 안 함, §7.1) -->
+        <div class="byline"><span>dongCoding</span><span class="dot"></span><time>2026.05.11</time><span class="dot"></span><span>4분</span></div>
+        <p class="article-lede">기능을 더하는 일에는 박수가 따르지만, 빼는 결정에는 침묵만 남는다. 그 침묵을 견디는 게 설계다.</p>
+        <p>YAGNI(You Aren't Gonna Need It)는 게으름의 변명이 아니다. 아직 증명되지 않은 필요를 미루는 <em>규율</em>이다. 이 글은 시리즈에 속하지 않는 단독 산문이라, 아래에 이전/다음 회차 네비게이션이 붙지 않는다.</p>
+        <h2 id="m1">복무하지 않으면 넣지 않는다</h2>
+        <p>모든 요소는 하나의 질문을 통과해야 한다 — <strong>읽기를 돕는가, 주의를 훔치는가.</strong></p>
+        <blockquote>덜어낸 자리에서 비로소 글이 숨을 쉰다.</blockquote>
+        <h2 id="m2">그래서 무엇을 뺐나</h2>
+        <ul class="leaf-bullet">
+          <li>조회수 숫자 — 읽기 실패 시 0이나 에러를 띄우지 않고 그냥 숨긴다.</li>
+          <li>관련 포스팅 — 매칭되는 글이 없으면 섹션 자체를 그리지 않는다.</li>
+        </ul>
+        <!-- series-nav 없음(비시리즈) · related 없음(매칭 0) -->
+      </article>
+      <aside class="toc" aria-label="목차">
+        <span class="k">목차</span>
+        <ol><li><a href="#m1" data-tgt="m1">복무하지 않으면 넣지 않는다</a></li><li><a href="#m2" data-tgt="m2">그래서 무엇을 뺐나</a></li></ol>
+      </aside>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+</div></div>
+<script src="app.js"></script>
+</body>
+</html>

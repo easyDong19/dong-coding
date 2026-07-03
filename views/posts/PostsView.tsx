@@ -1,7 +1,6 @@
 import { PostList, type Post } from "@/entities/post";
 import { Pager } from "@/widgets/pagination";
 import { Eyebrow, EmptyState } from "@/shared/ui";
-import styles from "./PostsView.module.css";
 
 export function PostsView({
   posts,
@@ -27,7 +26,7 @@ export function PostsView({
 
   return (
     <div className="wrap">
-      <div className={styles.head}>
+      <div className="mx-0 mt-0 mb-[1.2rem]">
         <Eyebrow>Posts</Eyebrow>
       </div>
       <PostList posts={posts} />

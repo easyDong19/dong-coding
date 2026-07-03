@@ -34,19 +34,25 @@
 
   /* 모션 (design.md §2.6) */
   --ease-sprout: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* 브랜드 5색 + 파생 2색 (design.md §2.1) — @theme 승격으로 bg-, text-, border- 유틸 생성.
+     light-dark() 유지: @theme inline 금지(사용 지점 color-scheme를 따라가야 함). */
+  --color-paper: light-dark(#f4f5ee, #14180f);
+  --color-ink: light-dark(#232a22, #e7eadf);
+  --color-moss: light-dark(#4f6442, #9bbe84);
+  --color-stone: light-dark(#6b7163, #9aa08f);
+  --color-line: light-dark(#e2e3da, #2b3226);
+  --color-panel: light-dark(rgba(35, 42, 34, 0.045), rgba(231, 234, 223, 0.05));
+  --color-moss-soft: light-dark(rgba(79, 100, 66, 0.1), rgba(155, 190, 132, 0.14));
+
+  /* 읽기 컬럼 폭 — PostView 그리드에서 var(--container-reading)로 참조 */
+  --container-reading: var(--reading);
 }
 
 /* ===== 브랜드 5색 + 투명도 파생 (design.md §2.1) =====
    토큰 하나에 라이트/다크 두 값을 넣고 color-scheme로 스위칭한다. */
 :root {
   color-scheme: light dark;
-  --paper: light-dark(#f4f5ee, #14180f);
-  --ink: light-dark(#232a22, #e7eadf);
-  --moss: light-dark(#4f6442, #9bbe84);
-  --stone: light-dark(#6b7163, #9aa08f);
-  --line: light-dark(#e2e3da, #2b3226);
-  --panel: light-dark(rgba(35, 42, 34, 0.045), rgba(231, 234, 223, 0.05));
-  --moss-soft: light-dark(rgba(79, 100, 66, 0.1), rgba(155, 190, 132, 0.14));
 }
 /* 수동 토글: color-scheme만 바꾸면 light-dark()가 따라감 */
 :root[data-theme="light"] {
@@ -68,8 +74,8 @@ html {
 }
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: var(--text-base);
   line-height: 1.78;
@@ -109,14 +115,14 @@ main {
 }
 
 a {
-  color: var(--moss);
+  color: var(--color-moss);
   text-underline-offset: 0.2em;
   text-decoration-thickness: 1px;
 }
 
 /* 포커스 링 — moss 2px + offset (design.md §2.5, §5) */
 :focus-visible {
-  outline: 2px solid var(--moss);
+  outline: 2px solid var(--color-moss);
   outline-offset: 3px;
   border-radius: var(--radius-focus);
 }
@@ -125,27 +131,6 @@ a {
 time,
 .tnum {
   font-variant-numeric: tabular-nums;
-}
-
-/* 잎 모양 불릿 — 본문 리스트 (design.md §3) */
-.leaf-bullet {
-  list-style: none;
-  padding-left: 1.4em;
-}
-.leaf-bullet li {
-  position: relative;
-  margin: 0.4em 0;
-}
-.leaf-bullet li::before {
-  content: "";
-  position: absolute;
-  left: -1.1em;
-  top: 0.62em;
-  width: 0.5em;
-  height: 0.5em;
-  background: var(--moss);
-  border-radius: 50% 0 50% 50%;
-  transform: rotate(45deg);
 }
 
 /* 가로 오버플로 방지 — 긴 요소는 자기 안에서 스크롤 (design.md §2.7) */
@@ -168,8 +153,8 @@ video {
 
 /* ===== 코드 블록·인라인 칩 (design.md §4.4) ===== */
 pre {
-  background: var(--panel);
-  border: 1px solid var(--line);
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-pre);
   padding: 1rem 1.1rem;
   margin: 1.6rem 0;
@@ -181,7 +166,7 @@ pre code {
 }
 /* 인라인 코드 칩 — 블록(pre) 내부는 제외 */
 :not(pre) > code {
-  background: var(--panel);
+  background: var(--color-panel);
   border-radius: var(--radius-code);
   padding: 0.1em 0.36em;
   font-family: var(--font-mono);
@@ -202,11 +187,11 @@ pre[data-language]::after {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   line-height: 1.6;
-  color: var(--stone);
+  color: var(--color-stone);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  background: var(--paper);
-  border: 1px solid var(--line);
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-code);
   pointer-events: none;
 }
@@ -234,12 +219,12 @@ th,
 td {
   padding: 0.55rem 0.85rem;
   text-align: left;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--color-line);
   vertical-align: top;
 }
 thead th {
   font-weight: 600;
-  color: var(--ink);
+  color: var(--color-ink);
   border-bottom-width: 2px;
 }
 tbody tr:last-child td {
@@ -279,6 +264,104 @@ code[data-theme] span {
   }
 }
 
-/* 잎 등장(sprout) 모션은 사용처(PostList.module.css)에서 정의한다 —
-   CSS Module이 애니메이션 이름을 스코프하므로 전역 키프레임은 참조되지 않는다.
-   모든 모션은 @media (prefers-reduced-motion: no-preference) 가드 안에서만 (design.md §2.6). */
+/* 잎 등장 모션 (design.md §2.6) — 목록 아이템 스태거. module 해시 대신 @utility로 소유 */
+@keyframes sprout {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@utility sprout-item {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: sprout 0.5s var(--ease-sprout) both;
+    &:nth-child(1) {
+      animation-delay: 0.04s;
+    }
+    &:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.16s;
+    }
+    &:nth-child(4) {
+      animation-delay: 0.22s;
+    }
+  }
+}
+
+/* MDX 본문 스코프 (design.md §4.4) — 전역 pre/code/table 층 위에 본문 고유 규칙만 */
+.prose p {
+  margin: 1.1rem 0;
+}
+.prose h2 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  margin: 2.6rem 0 0.8rem;
+}
+.prose h2::before {
+  content: "¶";
+  color: var(--color-moss);
+  margin-right: 0.5rem;
+  font-weight: 400;
+}
+.prose h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 2rem 0 0.6rem;
+}
+.prose blockquote {
+  border-left: 2px solid var(--color-moss);
+  margin: 1.5rem 0;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  color: var(--color-stone);
+}
+.prose ul {
+  list-style: none;
+  padding-left: 1.4em;
+}
+.prose ul li {
+  position: relative;
+  margin: 0.4em 0;
+}
+.prose ul li::before {
+  content: "";
+  position: absolute;
+  left: -1.1em;
+  top: 0.62em;
+  width: 0.5em;
+  height: 0.5em;
+  background: var(--color-moss);
+  border-radius: 50% 0 50% 50%;
+  transform: rotate(45deg);
+}
+.prose ol {
+  padding-left: 1.4em;
+}
+.prose figure {
+  margin: 1.8rem 0;
+}
+.prose figure img {
+  width: 100%;
+  border-radius: var(--radius-pre);
+  border: 1px solid var(--color-line);
+  display: block;
+}
+.prose figcaption {
+  color: var(--color-stone);
+  font-size: var(--text-sm);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.prose p code,
+.prose li code {
+  background: var(--color-panel);
+  border-radius: var(--radius-code);
+  padding: 0.08em 0.35em;
+}

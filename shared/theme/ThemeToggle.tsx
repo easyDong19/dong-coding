@@ -1,7 +1,6 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import styles from "./ThemeToggle.module.css";
 
 const STORAGE_KEY = "dc-theme";
 const THEME_EVENT = "dc-theme-change";
@@ -47,7 +46,7 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      className={styles.toggle}
+      className="inline-flex cursor-pointer items-center justify-center rounded-pill border-0 bg-transparent p-1 text-stone transition-colors hover:text-ink"
       aria-pressed={dark}
       aria-label={dark ? "라이트 모드로 전환" : "다크 모드로 전환"}
       onClick={toggle}
@@ -61,7 +60,7 @@ export function ThemeToggle() {
 function MoonIcon() {
   return (
     <svg
-      className={styles.icon}
+      className="h-[1.2rem] w-[1.2rem]"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -78,7 +77,7 @@ function MoonIcon() {
 function SunIcon() {
   return (
     <svg
-      className={styles.icon}
+      className="h-[1.2rem] w-[1.2rem]"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

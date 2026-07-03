@@ -1,6 +1,5 @@
 import type { Post } from "@/.velite";
 import { PostListItem } from "./PostListItem";
-import styles from "./PostList.module.css";
 
 type Props = {
   posts: Post[];
@@ -10,7 +9,7 @@ type Props = {
 
 export function PostList({ posts, numbered }: Props) {
   return (
-    <ol className={styles.stem}>
+    <ol className="relative m-0 list-none py-0 pr-0 pl-[1.7rem] before:absolute before:left-[0.32rem] before:top-[0.6rem] before:bottom-[0.6rem] before:w-px before:bg-line before:content-[''] max-[480px]:pl-[1.2rem]">
       {posts.map((post, i) => (
         <PostListItem
           key={post.slug}

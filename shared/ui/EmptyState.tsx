@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { Eyebrow } from "./Eyebrow";
-import styles from "./EmptyState.module.css";
 
 type EmptyStateProps = {
   eyebrow: string;
@@ -32,22 +31,34 @@ export function EmptyState({
   }, [role]);
 
   return (
-    <div ref={ref} className={styles.state} role={role} tabIndex={-1}>
-      <svg className={styles.leaf} aria-hidden="true">
+    <div
+      ref={ref}
+      className="mx-auto max-w-[30rem] px-4 py-20 text-center"
+      role={role}
+      tabIndex={-1}
+    >
+      <svg className="h-[2.2rem] w-[2.2rem] text-moss opacity-50" aria-hidden="true">
         <use href="#leaf" />
       </svg>
-      <Eyebrow className={styles.eyebrow}>{eyebrow}</Eyebrow>
-      <p className={styles.msg}>{message}</p>
-      {sub ? <p className={styles.sub}>{sub}</p> : null}
+      <Eyebrow className="mt-4 mb-[0.4rem] block">{eyebrow}</Eyebrow>
+      <p className="mb-[0.3rem] text-lg tracking-[-0.02em]">{message}</p>
+      {sub ? <p className="mb-[1.4rem] text-sm text-stone">{sub}</p> : null}
       {onRetry || action ? (
-        <div className={styles.actions}>
+        <div className="flex justify-center gap-[0.8rem]">
           {onRetry ? (
-            <button type="button" className={styles.btn} onClick={onRetry}>
+            <button
+              type="button"
+              className="cursor-pointer rounded-pill border border-line bg-transparent px-4 py-[0.4rem] text-sm text-ink [font-family:inherit] [font-weight:inherit] [font-style:inherit] [line-height:inherit] no-underline hover:border-moss hover:text-moss"
+              onClick={onRetry}
+            >
               {retryLabel}
             </button>
           ) : null}
           {action ? (
-            <a className={styles.btn} href={action.href}>
+            <a
+              className="cursor-pointer rounded-pill border border-line bg-transparent px-4 py-[0.4rem] text-sm text-ink [font-family:inherit] [font-weight:inherit] [font-style:inherit] [line-height:inherit] no-underline hover:border-moss hover:text-moss"
+              href={action.href}
+            >
               {action.label}
             </a>
           ) : null}

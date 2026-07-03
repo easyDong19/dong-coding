@@ -91,7 +91,8 @@ nav = **Home · Posts · Series · About** (+ RSS, 다크 토글)
 - **연락처/링크**: GitHub·메일·RSS
 
 ### 소스 정책
-- **MDX 단일 페이지(`content/about.mdx`)** 로 작성 추천 — 글처럼 편집 가능하고, 커스텀 컴포넌트(`ProfileHeader`·`Timeline`·`ProjectCard`)를 MDX 맵으로 주입. (대안: 코드 전용 뷰 — 편집 유연성↓)
+- **TSX + 타입 데이터(`entities/about/data.ts`)** 로 관리한다 — About 콘텐츠는 프로필·이력·프로젝트로 이뤄진 **구조화 데이터**라 MDX(글) 이점이 없고, props 타입 안전성·불필요한 MDX 번들 제거가 이득. `views/about/`의 컴포넌트(`ProfileHeader`·`Timeline`·`ProjectCard`)가 이 데이터를 직접 렌더한다. (2026-07-03 결정; 이력: 최초 MDX 단일 페이지 → TSX 전환. 설계: `dong-docs/specs/2026-07-03-about-tsx-migration-design.md`)
+- **콘텐츠 관리 원칙:** MDX는 글(posts·series 본문) 전용, About 같은 구조화 페이지 데이터는 TS로 둔다.
 - 레이아웃: 읽기 단일 컬럼 재사용. 사진·프로젝트 이미지는 "글에 집중" 원칙상 **콘텐츠에 복무하므로 환영**.
 
 ---
@@ -140,7 +141,7 @@ nav = **Home · Posts · Series · About** (+ RSS, 다크 토글)
 | Posts 페이지 크기 | 10 | §2 |
 | Posts URL | `/posts` + `/posts/page/[n]` | §2 |
 | Series 카드 정렬 | 최신 활동순 | §3.1 |
-| About 소스 | `content/about.mdx` | §4 |
+| About 소스 | `entities/about/data.ts` (TSX+타입 데이터) | §4 |
 | 개별 글 조회수 노출 | 노출하되 실패 시 숨김 | §5 |
 
 ---
@@ -165,7 +166,7 @@ nav = **Home · Posts · Series · About** (+ RSS, 다크 토글)
 | **Post — 관련 포스팅** | 매칭 글 없음 | 섹션 **통째로 생략**(빈 목록 안 보임) |
 | **Post — series-nav** | 시리즈 아님 | 미표시. 첫/마지막 회차면 이전/다음 한쪽만 빈자리 유지 |
 | **Post — 조회수** | 읽기 실패 | 숫자 **숨김**(§5.2, 0·에러 표기 안 함) |
-| **About** | 콘텐츠 미준비 | 최소 플레이스홀더: "소개가 곧 준비됩니다." (about.mdx는 커밋 콘텐츠) |
+| **About** | 콘텐츠 미준비 | 최소 플레이스홀더: "소개가 곧 준비됩니다." (About 데이터는 `entities/about/data.ts`, 커밋 콘텐츠) |
 
 ### 7.2 전역 상태 (app 셸)
 

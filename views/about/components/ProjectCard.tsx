@@ -1,10 +1,8 @@
-"use client";
-
 import styles from "./About.module.css";
 
 type Project = { title: string; description: string; href?: string };
 
-// 프로젝트 그리드 — MDX에서 <Projects items={[...]} />로 사용
+// 프로젝트 그리드
 export function Projects({ items }: { items: Project[] }) {
   return (
     <div className={styles.projects}>

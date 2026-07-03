@@ -31,6 +31,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Skills — 작업별 사용 규약
 스킬은 보조 도구다. **정본은 항상 `dong-docs/`이며, 스킬이 정본 규칙을 덮어쓰지 않는다.**
+- **브레인스토밍·설계 스펙 문서** → `superpowers:brainstorming` 등이 만드는 설계 스펙은 **`dong-docs/specs/YYYY-MM-DD-<주제>-design.md`에 작성한다** (스킬 기본 경로 `docs/superpowers/specs/`를 이 규약으로 덮어쓴다). dong-docs가 정본이므로 설계 산출물도 여기 모은다.
 - **Velite/스키마·검증** → `zod` (Zod refine 규칙, `tech-stack §3.1.1`).
 - **UI 프리미티브** → `shadcn` (v4 기준 설치, `tech-stack §2.4`). CLI는 프로젝트 `packageManager`대로 `pnpm dlx shadcn@latest`.
 - **컴포넌트·시각 작업** → `frontend-design` (단 색·타입스케일·모티프 정본은 `design.md`).

@@ -51,7 +51,7 @@ export function PostView({
           />
         ) : null}
 
-        <div className={styles.body}>
+        <div className="prose">
           <MDXContent code={post.body} components={mdxComponents} />
         </div>
 

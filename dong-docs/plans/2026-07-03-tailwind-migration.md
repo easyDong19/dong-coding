@@ -93,9 +93,9 @@ Expected: 2 passed. (구현이 이미 있으므로 바로 PASS — 이 헬퍼는
 
 `app/globals.css`에서 `@theme { ... }` 블록 **안**에 색 토큰을 추가한다(기존 `--font-*`/`--text-*`/`--radius-*` 옆). 그리고 기존 `:root { --paper: ...; }`의 **색 7줄을 삭제**한다(`color-scheme`/`--masthead-h` 등 비색상 줄과 `:root[data-theme]` 토글 블록은 유지).
 
-`@theme` 블록에 추가:
+`@theme` 블록에 추가 (⚠️ 주석에 `*/` 문자열 금지 — CSS 주석을 조기 종료시켜 빌드 파싱 에러):
 ```css
-  /* 브랜드 5색 + 파생 2색 (design.md §2.1) — @theme 승격으로 bg-*/text-*/border-* 생성.
+  /* 브랜드 5색 + 파생 2색 (design.md §2.1) — @theme 승격으로 bg-, text-, border- 유틸 생성.
      light-dark() 유지: @theme inline 금지(사용 지점 color-scheme를 따라가야 함). */
   --color-paper: light-dark(#f4f5ee, #14180f);
   --color-ink: light-dark(#232a22, #e7eadf);
@@ -110,17 +110,19 @@ Expected: 2 passed. (구현이 이미 있으므로 바로 PASS — 이 헬퍼는
   --container-reading: var(--reading);
 ```
 
-`:root`에서 삭제할 7줄:
+`:root`의 기존 7줄 색 정의를 **삭제하지 말고 전환 alias로 교체**한다(⚠️ 무회귀 필수). 아직 전환 안 된 16개 `*.module.css`가 bare `var(--stone)` 등을 81곳 참조하므로, bare 이름을 즉시 지우면 사이트 전역 색이 깨진다. 전환 기간 동안 bare 이름을 `@theme` 토큰으로 위임:
 ```css
-  --paper: light-dark(#f4f5ee, #14180f);
-  --ink: light-dark(#232a22, #e7eadf);
-  --moss: light-dark(#4f6442, #9bbe84);
-  --stone: light-dark(#6b7163, #9aa08f);
-  --line: light-dark(#e2e3da, #2b3226);
-  --panel: light-dark(rgba(35, 42, 34, 0.045), rgba(231, 234, 223, 0.05));
-  --moss-soft: light-dark(rgba(79, 100, 66, 0.1), rgba(155, 190, 132, 0.14));
+  /* 전환 alias — 미전환 module.css의 var(--stone) 등이 계속 해석되도록 위임.
+     모든 module.css 제거 후 Task 4에서 이 블록도 삭제한다. */
+  --paper: var(--color-paper);
+  --ink: var(--color-ink);
+  --moss: var(--color-moss);
+  --stone: var(--color-stone);
+  --line: var(--color-line);
+  --panel: var(--color-panel);
+  --moss-soft: var(--color-moss-soft);
 ```
-> 주의: `:root`의 `color-scheme: light dark;`, `--panel`을 쓰는 다른 줄은 두지 말 것 — 색 정의만 옮기고, `:root { color-scheme: light dark; }`는 남긴다.
+> 주의: `:root`의 `color-scheme: light dark;`와 `:root[data-theme]` 토글 블록은 그대로 남긴다. `light-dark()` 실제 값은 `@theme`의 `--color-*`에만 정의되고, bare 이름은 그것을 가리키기만 한다.
 
 - [ ] **Step 6: globals.css 유지층의 토큰 참조를 `--color-*`로 갱신**
 
@@ -164,6 +166,7 @@ Expected: 2 passed. (구현이 이미 있으므로 바로 PASS — 이 헬퍼는
 - [ ] **Step 8: globals.css — `sprout` 모션 이전 + `@utility` 스태거**
 
 `entities/post/ui/PostList.module.css`의 `@media (prefers-reduced-motion: no-preference)` 블록(`.post` 애니메이션 + `nth-child` 딜레이 + `@keyframes sprout`)을 globals로 이전한다. `app/globals.css` 하단에 추가:
+⚠️ Tailwind v4는 `@utility`를 어떤 at-rule 안에도 중첩할 수 없다 → `@media`를 `@utility` **안**에 넣는다(반대로 하면 빌드 실패):
 ```css
 /* 잎 등장 모션 (design.md §2.6) — 목록 아이템 스태거. module 해시 대신 @utility로 소유 */
 @keyframes sprout {
@@ -176,8 +179,8 @@ Expected: 2 passed. (구현이 이미 있으므로 바로 PASS — 이 헬퍼는
     transform: none;
   }
 }
-@media (prefers-reduced-motion: no-preference) {
-  @utility sprout-item {
+@utility sprout-item {
+  @media (prefers-reduced-motion: no-preference) {
     animation: sprout 0.5s var(--ease-sprout) both;
     &:nth-child(1) {
       animation-delay: 0.04s;
@@ -457,7 +460,16 @@ git commit -m "refactor: widgets CSS Modules→Tailwind 유틸리티"
 - [ ] **Step 6: SeriesDetailView 전환** — 매핑, 삭제.
 - [ ] **Step 7: AboutView + About 전환** — `AboutView.module.css`(19줄, `.body h2` ¶모티프 등 — 본문형이면 `.prose` 재사용 검토) + `About.module.css`(프로필/프로젝트 그리드) 매핑, 두 파일 삭제.
 
-- [ ] **Step 8: 최종 검증 — module.css 0개**
+- [ ] **Step 8: 전환 alias shim 제거 (Task 1 Step 5 연계)**
+
+모든 module.css가 사라졌으므로 bare `var(--paper)` 등을 참조하는 코드가 없다. `app/globals.css` `:root`의 전환 alias 블록(`--paper: var(--color-paper);` … `--moss-soft: …` 7줄 + 주석)을 삭제한다.
+먼저 잔여 참조가 없는지 확인:
+```bash
+grep -rn 'var(--paper)\|var(--ink)\|var(--moss)\|var(--stone)\|var(--line)\|var(--panel)\|var(--moss-soft)' --include='*.css' --include='*.tsx' --include='*.ts' app entities shared views widgets
+```
+Expected: **출력 없음**(전부 `var(--color-*)`로 전환됨). 있으면 해당 파일을 먼저 `var(--color-*)`로 고친다. 확인 후 alias 블록 삭제.
+
+- [ ] **Step 9: 최종 검증 — module.css 0개**
 
 Run:
 ```bash
@@ -466,10 +478,10 @@ pnpm test && pnpm lint && pnpm build
 ```
 Expected: `find` 출력 **비어 있음**(worktree 제외). 빌드·테스트·린트 성공. `pnpm dev`로 홈·목록·시리즈(목록/상세)·About·글 상세 전 페이지를 라이트/다크 확인.
 
-- [ ] **Step 9: 커밋 (사용자 승인 후)**
+- [ ] **Step 10: 커밋 (사용자 승인 후)**
 
 ```bash
-git add -A views/ entities/
+git add -A views/ entities/ app/globals.css
 git commit -m "refactor: views·entities CSS Modules→Tailwind 유틸리티 전환 완료"
 ```
 

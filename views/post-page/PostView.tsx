@@ -5,6 +5,7 @@ import type { SeriesNav as SeriesNavData } from "@/entities/series";
 import { MDXContent } from "@/shared/mdx/MDXContent";
 import { SeriesNav } from "@/widgets/series-nav";
 import { Related } from "@/widgets/related";
+import { Toc } from "@/widgets/toc";
 import { TagChip } from "@/shared/ui";
 import { formatDate } from "@/shared/lib/date";
 import { mdxComponents } from "./lib/mdx-components";
@@ -57,6 +58,9 @@ export function PostView({
         <SeriesNav nav={nav} seriesTitle={seriesTitle} />
         <Related posts={related} />
       </article>
+      <aside className={styles.tocCol}>
+        <Toc toc={post.toc} />
+      </aside>
     </div>
   );
 }

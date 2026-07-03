@@ -65,7 +65,10 @@
   letter-spacing: -0.02em;
   line-height: 1.4;
   margin: 2.6rem 0 0.8rem;
-  scroll-margin-top: 2rem;
+  /* 앵커 오프셋은 html의 scroll-padding-top(--masthead-h)이 전담한다.
+     여기에 scroll-margin-top을 더하면 착지 위치가 목차 스크롤스파이 트리거선보다
+     아래로 내려가, 클릭 시 직전 헤딩이 강조되는 불일치가 생긴다(design.md §4.5).
+     H3는 scroll-margin-top이 없어 이미 정상이므로 H2도 동일하게 맞춘다. */
 }
 .body h2::before {
   content: "¶";
@@ -145,4 +148,15 @@
 .body pre code {
   background: none;
   padding: 0;
+}
+
+/* 따라다니는 목차 컬럼 — 오른쪽 여백(col 3), ≤1100px 숨김 (design.md §4.5·§2.7) */
+.tocCol {
+  grid-column: 3;
+  min-width: 0;
+}
+@media (max-width: 1100px) {
+  .tocCol {
+    display: none;
+  }
 }

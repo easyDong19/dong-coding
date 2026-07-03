@@ -54,15 +54,6 @@
    토큰 하나에 라이트/다크 두 값을 넣고 color-scheme로 스위칭한다. */
 :root {
   color-scheme: light dark;
-  /* 전환 alias — 미전환 module.css의 var(--stone) 등이 계속 해석되도록 위임.
-     모든 module.css 제거 후 Task 4에서 이 블록도 삭제한다. */
-  --paper: var(--color-paper);
-  --ink: var(--color-ink);
-  --moss: var(--color-moss);
-  --stone: var(--color-stone);
-  --line: var(--color-line);
-  --panel: var(--color-panel);
-  --moss-soft: var(--color-moss-soft);
 }
 /* 수동 토글: color-scheme만 바꾸면 light-dark()가 따라감 */
 :root[data-theme="light"] {

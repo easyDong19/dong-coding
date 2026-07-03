@@ -1,15 +1,14 @@
 import type { SeriesCard as SeriesCardData } from "@/entities/series";
 import { SeriesCard } from "@/widgets/series-card";
 import { Eyebrow, EmptyState } from "@/shared/ui";
-import styles from "./SeriesListView.module.css";
 
 function Group({ title, cards }: { title: string; cards: SeriesCardData[] }) {
   return (
-    <section className={styles.group}>
-      <div className={styles.groupHead}>
+    <section className="mb-10">
+      <div className="mx-0 mt-0 mb-4">
         <Eyebrow>{title}</Eyebrow>
       </div>
-      <div className={styles.grid}>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-[1.2rem]">
         {cards.map((card) => (
           <SeriesCard key={card.slug} card={card} />
         ))}

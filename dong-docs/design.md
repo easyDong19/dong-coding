@@ -39,7 +39,7 @@
 | `--paper` | `#F4F5EE` | `#14180F` | 종이/배경 (다크: 밤의 숲) |
 | `--ink` | `#232A22` | `#E7EADF` | 본문 텍스트 |
 | `--moss` | `#4F6442` | `#9BBE84` | 링크·줄기·강조 (다크: 밝은 잎) |
-| `--stone` | `#7C8275` | `#9AA08F` | 메타 — 날짜·태그·캡션 |
+| `--stone` | `#6B7163` | `#9AA08F` | 메타 — 날짜·태그·캡션 |
 | `--line` | `#E2E3DA` | `#2B3226` | 헤어라인·구분선 |
 
 위 5색에서 **투명도로만 파생한** 음영 (새 브랜드색 아님). 라이트는 어둡게 깔고(ink wash), 다크는 밝게 띄운다(paper wash):
@@ -61,7 +61,7 @@
   --paper: light-dark(#F4F5EE, #14180F);
   --ink:   light-dark(#232A22, #E7EADF);
   --moss:  light-dark(#4F6442, #9BBE84);
-  --stone: light-dark(#7C8275, #9AA08F);
+  --stone: light-dark(#6B7163, #9AA08F);
   --line:  light-dark(#E2E3DA, #2B3226);
   --panel:     light-dark(rgba(35,42,34,.045), rgba(231,234,223,.05));
   --moss-soft: light-dark(rgba(79,100,66,.10), rgba(155,190,132,.14));
@@ -129,6 +129,10 @@
 | 2xl·3xl (H1) | 1.3 | `-.03em` |
 
 > eyebrow·부제 라벨은 서체 전환 없이 **Pretendard + moss색 + weight 500 + 자간 `.02em`** 로 구분한다(italic·serif 안 씀). 숫자(날짜)에는 `font-variant-numeric: tabular-nums`.
+
+**줄바꿈·문단 다듬기 (한글 조판):**
+- 본문은 `word-break: keep-all` — 한글이 어절 중간에서 꺾이지 않게. 긴 URL·토큰의 가로 오버플로는 `overflow-wrap: anywhere`(§2.7)가 흡수하므로 안전.
+- 제목(h1–h3)은 `text-wrap: balance`(줄 수 균형), 본문 문단(p·li·figcaption·blockquote)은 `text-wrap: pretty` — 마지막 줄 고아 단어(외톨이) 방지. 미지원 브라우저에선 자동 무시(점진적 향상).
 
 ### 2.3 간격 & 레이아웃
 
@@ -291,7 +295,7 @@ SVG 잎은 `<symbol>`로 한 번 정의 후 `<use>`로 재사용합니다.
 - `:focus-visible` — 모든 인터랙티브 요소에 moss `2px` 아웃라인 + offset.
 - `prefers-reduced-motion` — 모든 애니메이션은 이 가드 안에서만.
 - 장식 SVG는 `aria-hidden="true"`, `nav`/`section`엔 `aria-label`, 현재 페이지엔 `aria-current`.
-- 본문 색 대비: ink on paper는 라이트/다크 모두 WCAG AA 충족 (다크 `#E7EADF` on `#14180F` ≈ 15:1, moss 링크 `#9BBE84` ≈ 9:1, stone 메타 `#9AA08F` ≈ 6.8:1).
+- 본문 색 대비: ink on paper는 라이트/다크 모두 WCAG AA 충족 (다크 `#E7EADF` on `#14180F` ≈ 15:1, moss 링크 `#9BBE84` ≈ 9:1, stone 메타 `#9AA08F` ≈ 6.8:1 / 라이트 moss `#4F6442` ≈ 5.9:1, stone `#6B7163` ≈ 4.6:1). **stone 라이트는 `#6B7163`로 확정(2026-07-03)** — 구 `#7C8275`는 3.6:1로 14px 메타 텍스트 AA(4.5:1) 미달이라 조정. 색상(초록기 회색)은 유지, 명도만 낮춤.
 - 다크모드: `<meta name="color-scheme" content="light dark">`로 폼 컨트롤·스크롤바까지 모드에 맞춤. 토글 UI엔 `aria-pressed` 또는 `aria-label`.
 
 ---

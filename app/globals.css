@@ -43,7 +43,7 @@
   --paper: light-dark(#f4f5ee, #14180f);
   --ink: light-dark(#232a22, #e7eadf);
   --moss: light-dark(#4f6442, #9bbe84);
-  --stone: light-dark(#7c8275, #9aa08f);
+  --stone: light-dark(#6b7163, #9aa08f);
   --line: light-dark(#e2e3da, #2b3226);
   --panel: light-dark(rgba(35, 42, 34, 0.045), rgba(231, 234, 223, 0.05));
   --moss-soft: light-dark(rgba(79, 100, 66, 0.1), rgba(155, 190, 132, 0.14));
@@ -74,6 +74,21 @@ body {
   font-size: var(--text-base);
   line-height: 1.78;
   letter-spacing: -0.005em;
+  /* 한글 줄바꿈 — 어절 단위(keep-all). 긴 URL·토큰은 overflow-wrap: anywhere가 흡수 (design.md §2.2) */
+  word-break: keep-all;
+}
+
+/* 고아 단어 방지 — 제목은 줄 수 균형, 본문은 마지막 줄 다듬기 (design.md §2.2) */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p,
+li,
+figcaption,
+blockquote {
+  text-wrap: pretty;
 }
 @media (min-width: 768px) {
   :root {
@@ -90,7 +105,7 @@ body {
 
 /* 본문 상단 버퍼 — 고정 nav 바에 글이 딱 붙지 않도록 (읽기 편의) */
 main {
-  padding-top: clamp(1.5rem, 3vw, 2rem);
+  padding-top: clamp(2.5rem, 5vw, 3.5rem);
 }
 
 a {

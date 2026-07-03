@@ -1,29 +1,84 @@
 /* ProfileHeader (design.md §4.10) */
 .profile {
   display: flex;
-  gap: 1.5rem;
+  gap: clamp(1.25rem, 4vw, 2rem);
   align-items: center;
-  margin: 1.5rem 0 2.5rem;
+  margin: 1.5rem 0 1.75rem;
   flex-wrap: wrap;
 }
+/* 정사각 avatar(radius 14px) — 소개 히어로로 확대: 120 → 168px 유동 */
 .avatar {
-  width: 104px;
-  height: 104px;
+  width: clamp(7.5rem, 16vw, 10.5rem);
+  height: clamp(7.5rem, 16vw, 10.5rem);
   border-radius: 14px;
   border: 1px solid var(--line);
   background: var(--panel);
   flex: 0 0 auto;
+  object-fit: cover;
+}
+.identity {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+/* eyebrow — 서체 전환 없이 색·굵기·자간으로 (design.md §2.2) */
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--moss);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 .name {
-  margin: 0 0 0.3rem;
-  font-size: var(--text-2xl);
+  margin: 0 0 0.4rem;
+  font-size: clamp(var(--text-2xl), 5vw, var(--text-3xl));
   font-weight: 700;
   letter-spacing: -0.03em;
+  line-height: 1.3;
 }
 .role {
+  margin: 0;
   font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--stone);
+}
+
+/* Intro lede — 소개 한두 문장 (design.md §2.2 lg/리드) */
+.intro {
+  margin: 0 0 2.5rem;
+}
+.ledeLine {
+  margin: 0.7rem 0;
+  font-size: var(--text-lg);
+  line-height: 1.7;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* sprout 등장 — 모션 비선호 사용자는 애니메이션 0 (design.md §2.6) */
+@media (prefers-reduced-motion: no-preference) {
+  .profile > *,
+  .intro {
+    animation: about-sprout 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .avatar {
+    animation-delay: 0.05s;
+  }
+  .identity {
+    animation-delay: 0.13s;
+  }
+  .intro {
+    animation-delay: 0.21s;
+  }
+}
+@keyframes about-sprout {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Timeline — 줄기-잎 재사용 (design.md §4.10) */

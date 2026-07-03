@@ -1,7 +1,7 @@
 # CSS Modules → 유틸리티 우선 Tailwind 마이그레이션 (설계 스펙)
 
 - **작성일:** 2026-07-03
-- **상태:** 설계 확정 (구현 대기)
+- **상태:** 구현 완료 (2026-07-04, 브랜치 `refactor/tailwind-migration` — PR-1~4 + 문서 반영. CSS Modules 0개)
 - **정본 참조:** `dong-docs/prepare/tech-stack.md §2.4`, `dong-docs/design.md`, `dong-docs/prepare/branch-strategy.md`
 
 ---

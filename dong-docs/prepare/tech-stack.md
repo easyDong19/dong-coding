@@ -31,7 +31,7 @@
 | 언어·패키지 | **TypeScript** · **pnpm** | 확정 |
 | 콘텐츠 형식 | **MDX** | 확정 |
 | UI 프리미티브 | **shadcn/ui** (Tailwind v4 기준) | 확정 |
-| 스타일 | **Tailwind CSS v4** (CSS-first `@theme`) | 확정 |
+| 스타일 | **Tailwind CSS v4** (CSS-first `@theme`) · **유틸리티 우선**(컴포넌트) + 얇은 유지층(MDX 본문·모티프) | 확정 (§2.4.1) |
 | 폰트 로딩 | **Pretendard** Variable (`next/font/local` 셀프호스트) + 코드 **JetBrains Mono** (`next/font/google`) | 확정 |
 | 콘텐츠 파이프라인 | **Velite** | 재평가 후 채택 |
 | 아키텍처 | **경량 FSD** (app 얇게 + entities/widgets + MDX 3분할) | 재평가 후 채택 |
@@ -66,6 +66,29 @@
 - **왜(shadcn):** 소유하는 컴포넌트(복사 기반)라 5색 토큰·줄기-잎 미학에 맞춰 자유롭게 개조 가능. 런타임 의존성·블랙박스 스타일이 없어 "글에 집중" 원칙과 충돌하지 않는다.
 - **왜(Tailwind v4 CSS-first):** `design.md`가 이미 `--paper`/`--ink`/`--moss` 등 **CSS 변수 토큰**으로 서술됨. v4의 `@theme`(globals.css)이 이 토큰 모델과 1:1로 맞는다. `tailwind.config.js` 중심 구성은 토큰 이중 정의를 낳으므로 피한다.
 - **결정:** shadcn도 **v4 기준**으로 설치(CLI는 `shadcn`).
+
+### 2.4.1 컴포넌트 스타일 — 유틸리티 우선 Tailwind (대안 → 선택 → 이유)
+
+> 정본: 설계 스펙 `dong-docs/specs/2026-07-03-tailwind-migration-design.md`, 구현 플랜 `dong-docs/plans/2026-07-03-tailwind-migration.md`.
+
+**대안:** 초기 구현은 프로토타입(`dong-docs/prototype/styles.css`, 수제 vanilla CSS)을 거의 1:1로 옮기며 **컴포넌트를 CSS Modules(`*.module.css`)로** 작성했다. Tailwind는 토큰/테마 층으로만 쓰였다. 이 이분 구조는 SSOT에 기록되지 않은 채 굳어진 **드리프트**였다.
+
+**선택:** 컴포넌트 스타일을 **유틸리티 우선 Tailwind**로 전환하고 **CSS Modules를 폐지**한다. 유틸리티로 표현되지 않는 두 영역만 `app/globals.css`의 얇은 층으로 남긴다 — **하이브리드**.
+
+| 영역 | 처리 |
+|---|---|
+| 컴포넌트 chrome(레이아웃·spacing·색·타이포·상태) | **Tailwind 유틸리티**(JSX `className`, 다중/조건부는 `cn` = clsx + tailwind-merge) |
+| MDX 본문(마크다운 생성 `<h2><p><ul>` — className 주입 불가) | `globals.css`의 **`.prose` 스코프** |
+| 줄기-잎 모티프·목록 등장 모션(가상요소·복합 선택자) | v4 **`@utility`**(`leaf-bullet`·`sprout-item`) |
+| 맨몸 요소 base(`body/a/:focus-visible`)·전역 `pre/code/table` | `globals.css` base 층 |
+
+**이유:** ① 저작 속도·DX(파일 왕복 제거), ② 5색 토큰·타입스케일을 유틸리티로 강제, ③ shadcn/Tailwind 생태계 표준 정합, ④ 반복 레이아웃/spacing 중복 감소, ⑤ 문서-구현 드리프트 해소.
+
+**핵심 규칙:**
+- **5색은 `@theme`에 `--color-*`로 정의**(예: `--color-paper`) → `bg-paper`/`text-ink`/`border-line` 유틸리티 생성. `light-dark()` + `color-scheme`/`data-theme` 다크모드 메커니즘 불변. **`@theme inline` 금지**(사용 지점 `color-scheme`를 따라가야 함).
+- 색·간격·반경·타이포는 **토큰 유틸리티만** 사용. 새 색/폰트/임의 px 도입 금지(`design.md`).
+- 스케일에 없는 값은 임의-**값** 유틸리티(`pl-[1.8rem]`). 임의-**속성** shorthand(`[font:inherit]` 등)는 Tailwind가 마지막에 방출해 named 유틸리티를 덮으므로 금지 — 필요하면 granular(`[font-family:inherit]`).
+- `.prose`는 전역 `pre/code/table` 층과 중복 선언하지 않는다(본문 고유 규칙만).
 
 ### 2.5 Pretendard
 - **왜:** `design.md §2.2`의 `--sans` 지정 폰트. 본문·UI 전체 기본. 한글 본문 가독성의 바닥값.

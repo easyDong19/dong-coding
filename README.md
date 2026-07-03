@@ -201,3 +201,13 @@ dong-docs/    정본(SSOT) — design·tech-stack·pages-plan·plans 등
 ```
 
 작업 규약(커밋·브랜치·PR·디자인·기술)은 [`AGENTS.md`](AGENTS.md)와 [`dong-docs/`](dong-docs/)를 따르세요.
+
+---
+
+## 라이선스
+
+**코드와 글의 라이선스가 다릅니다.**
+
+- **소스 코드** — [MIT](LICENSE). 자유롭게 사용·수정·재배포할 수 있습니다(저작권 고지 유지 조건).
+- **블로그 콘텐츠** (`content/**` 의 글·이미지 등) — © 2026 dongCoding. **All rights reserved.** MIT 적용 대상이 **아닙니다.** 무단 복제·전재를 금합니다.
+

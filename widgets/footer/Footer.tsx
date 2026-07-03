@@ -4,17 +4,22 @@ import styles from './Footer.module.css';
 export function Footer() {
   return (
     <footer className={`${styles.footer} wrap`}>
-      <span className={styles.sig}>
-        <svg className={styles.leaf} aria-hidden='true'>
-          <use href='#leaf-fill' />
-        </svg>
-        dongCoding
-      </span>
-      <span className={styles.links}>
-        <a href='#'>RSS</a>
-        <a href='#'>GitHub</a>
-        <a href='#'>메일</a>
-      </span>
+      <div className={styles.top}>
+        <span className={styles.sig}>
+          <svg className={styles.leaf} aria-hidden='true'>
+            <use href='#leaf-fill' />
+          </svg>
+          dongCoding
+        </span>
+        <span className={styles.links}>
+          <a href='#'>RSS</a>
+          <a href='#'>GitHub</a>
+          <a href='#'>메일</a>
+        </span>
+      </div>
+      <p className={styles.copyright}>
+        © 2026 dongCoding. All rights reserved.
+      </p>
     </footer>
   );
 }

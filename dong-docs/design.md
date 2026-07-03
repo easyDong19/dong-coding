@@ -274,10 +274,11 @@ SVG 잎은 `<symbol>`로 한 번 정의 후 `<use>`로 재사용합니다.
 - **상태:** hover 시 border moss. 카드 radius `10px`, `--line` 헤어라인.
 
 ### 4.10 About 컴포넌트 (ProfileHeader · Timeline · ProjectCard)
-> 소스는 `content/about.mdx`에서 MDX 컴포넌트로 주입(`pages-plan.md §4`).
-- **ProfileHeader:** avatar(정사각 radius `14px`, `--panel`) + 이름(H1 급) + 한 줄 소개(role: Pretendard · stone · weight 500). "글에 집중" 원칙상 사진은 콘텐츠에 복무하므로 환영.
+> 소스는 `entities/about/data.ts`(TSX+타입 데이터)를 `views/about/` 컴포넌트가 직접 렌더(`pages-plan.md §4`).
+- **ProfileHeader:** avatar(정사각 radius `14px`, `--panel`) + 한 줄 소개(role: Pretendard · stone · weight 500, `h1`). 이름 h1 없이 role을 h1으로 둔다. "글에 집중" 원칙상 사진은 콘텐츠에 복무하므로 환영.
 - **Timeline (이력):** §3 **줄기-잎 모티프 재사용** — 세로 `1px` 라인(`--line`) + 잎 불릿(moss). 연도 `when`은 `tabular-nums`.
 - **ProjectCard:** `projects` 그리드(auto-fill `minmax(14rem, 1fr)`) — 제목 · 설명(stone) · 링크. hover 시 border moss, radius `10px`.
+- **모션:** About은 §2.6 sprout 등장 애니메이션을 **의도적으로 적용하지 않는다**(정적 진입). sprout는 posts 목록 등 다른 곳에서 계속 사용.
 
 ### 4.11 Empty / Error State (빈·에러 공통)
 > 화면별 조건·문구는 `pages-plan.md §7`. 여기선 공통 anatomy만.

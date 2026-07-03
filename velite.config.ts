@@ -83,21 +83,12 @@ const series = defineCollection({
   }),
 });
 
-// About은 단일 페이지 — MDX 본문에 커스텀 컴포넌트를 주입한다 (pages-plan §4)
-const about = defineCollection({
-  name: "About",
-  pattern: "about.mdx",
-  single: true,
-  schema: s.object({
-    title: s.string().default("About"),
-    body: s.mdx(),
-  }),
-});
+// About은 MDX가 아닌 TSX+타입 데이터(entities/about/data.ts)로 관리한다 (pages-plan §4).
 
 export default defineConfig({
   // 스키마 층 위반(refine·타입)은 CLI `--strict` 플래그로 빌드를 실패시킨다.
   // config의 strict는 CLI 기본값(false)에 덮어써져 무효이므로 여기 두지 않는다.
-  collections: { posts, series, about },
+  collections: { posts, series },
   mdx: {
     remarkPlugins: [remarkGfm, remarkMath],
     rehypePlugins: [

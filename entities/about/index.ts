@@ -1,7 +1,7 @@
-import { about } from "@/.velite";
+import { aboutData, type AboutData } from "./data";
 
-// About 콘텐츠도 .velite 접근은 entities 경유 (경량 FSD)
-export function getAbout() {
-  return about;
+// About 콘텐츠 접근은 entities 경유 (경량 FSD). MDX가 아닌 타입 데이터 소스.
+export function getAbout(): AboutData {
+  return aboutData;
 }
-export type { About } from "@/.velite";
+export type { AboutData } from "./data";

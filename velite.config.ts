@@ -41,7 +41,7 @@ function palette({ fg, moss, stone, str, num, fn }: Ink) {
     ],
   } as const;
 }
-const codeThemeLight = palette({ fg: "#232A22", moss: "#4F6442", stone: "#7C8275", str: "#9C5A49", num: "#8A6F36", fn: "#2F6F6A" });
+const codeThemeLight = palette({ fg: "#232A22", moss: "#4F6442", stone: "#6B7163", str: "#9C5A49", num: "#8A6F36", fn: "#2F6F6A" });
 const codeThemeDark = palette({ fg: "#E7EADF", moss: "#9BBE84", stone: "#9AA08F", str: "#CF9079", num: "#CBAB63", fn: "#79B8B0" });
 
 const posts = defineCollection({

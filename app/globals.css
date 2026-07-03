@@ -22,6 +22,10 @@
   --reading: 43rem;
   --gutter: clamp(1.25rem, 5vw, 2.5rem);
 
+  /* 상단 고정 nav 바 — 앵커 오프셋(scroll-padding)·계층. 실측 nav ≈ 44px(토글 아이콘이 높이 지배) + 여유 */
+  --masthead-h: 3rem;
+  --z-header: 50;
+
   /* 모서리 반경 (design.md §2.4) — 확대 시 흐트러지면 안 되는 값이라 px */
   --radius-code: 5px;
   --radius-pre: 10px;
@@ -59,6 +63,8 @@
 /* 스크롤바 공간 항상 예약 → 레이아웃 밀림(jank) 방지 (design.md §2.3) */
 html {
   scrollbar-gutter: stable;
+  /* 고정 nav 바에 앵커·TOC 타깃이 가려지지 않도록 (design.md §2.3) */
+  scroll-padding-top: var(--masthead-h);
 }
 body {
   margin: 0;
@@ -80,6 +86,11 @@ body {
   max-width: var(--measure);
   margin: 0 auto;
   padding-inline: var(--gutter);
+}
+
+/* 본문 상단 버퍼 — 고정 nav 바에 글이 딱 붙지 않도록 (읽기 편의) */
+main {
+  padding-top: clamp(1.5rem, 3vw, 2rem);
 }
 
 a {
@@ -140,23 +151,117 @@ video {
   overflow-wrap: anywhere;
 }
 
-/* ===== 코드 하이라이트 — shiki dual 테마를 5색에 매핑 (design.md §4.4, tech-stack §4.1) =====
-   rehype-pretty-code가 토큰마다 --shiki-light/--shiki-dark 변수를 심는다.
-   커스텀 테마가 이미 moss/stone/ink만 쓰므로 여기선 모드 스위칭만. */
-.shiki,
-.shiki span {
+/* ===== 코드 블록·인라인 칩 (design.md §4.4) ===== */
+pre {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pre);
+  padding: 1rem 1.1rem;
+  margin: 1.6rem 0;
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+pre code {
+  font-family: var(--font-mono);
+}
+/* 인라인 코드 칩 — 블록(pre) 내부는 제외 */
+:not(pre) > code {
+  background: var(--panel);
+  border-radius: var(--radius-code);
+  padding: 0.1em 0.36em;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* 언어 배지 — 코드펜스 언어(data-language)를 우상단에 자동 표시.
+   figure(비스크롤)에 앵커하려 pre엔 position을 주지 않는다 → 가로 스크롤에도 고정. */
+figure[data-rehype-pretty-code-figure] {
+  position: relative;
+}
+pre[data-language]::after {
+  content: attr(data-language);
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  padding: 0.05rem 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  color: var(--stone);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-code);
+  pointer-events: none;
+}
+/* 보기 좋은 라벨 매핑(선택) — 나머지는 data-language 원문 대문자 그대로 */
+pre[data-language="cpp"]::after {
+  content: "C++";
+}
+pre[data-language="tsx"]::after {
+  content: "TSX";
+}
+/* 언어 없는 블록엔 배지 숨김 */
+pre[data-language="plaintext"]::after,
+pre[data-language="text"]::after {
+  content: none;
+}
+
+/* ===== 표 — 에디토리얼(5색: --line 헤어라인 + --ink/--stone) (design.md §2.7) ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.6rem 0;
+  font-size: var(--text-sm);
+}
+th,
+td {
+  padding: 0.55rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+thead th {
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom-width: 2px;
+}
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* ===== 코드 하이라이트 — rehype-pretty-code dual 테마 소비 (design.md §4.4, tech-stack §4.1) =====
+   출력엔 .shiki 클래스가 없다. 색·굵기·기울임은 토큰마다 code[data-theme] 아래 span에
+   --shiki-light(-font-weight/-font-style) / --shiki-dark(...) CSS 변수로 실린다 → 여기서 소비. */
+pre[data-theme],
+code[data-theme] {
   color: var(--shiki-light);
-  background-color: transparent;
+}
+code[data-theme] span {
+  color: var(--shiki-light);
+  font-weight: var(--shiki-light-font-weight, 400);
+  font-style: var(--shiki-light-font-style, normal);
+}
+:root[data-theme="dark"] pre[data-theme],
+:root[data-theme="dark"] code[data-theme],
+:root[data-theme="dark"] code[data-theme] span {
+  color: var(--shiki-dark);
+}
+:root[data-theme="dark"] code[data-theme] span {
+  font-weight: var(--shiki-dark-font-weight, 400);
+  font-style: var(--shiki-dark-font-style, normal);
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .shiki,
-  :root:not([data-theme="light"]) .shiki span {
+  :root:not([data-theme="light"]) pre[data-theme],
+  :root:not([data-theme="light"]) code[data-theme],
+  :root:not([data-theme="light"]) code[data-theme] span {
     color: var(--shiki-dark);
   }
-}
-:root[data-theme="dark"] .shiki,
-:root[data-theme="dark"] .shiki span {
-  color: var(--shiki-dark);
+  :root:not([data-theme="light"]) code[data-theme] span {
+    font-weight: var(--shiki-dark-font-weight, 400);
+    font-style: var(--shiki-dark-font-style, normal);
+  }
 }
 
 /* 잎 등장(sprout) 모션은 사용처(PostList.module.css)에서 정의한다 —

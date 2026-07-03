@@ -9,6 +9,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 커밋·브랜치·PR·디자인·기술 결정의 정본(SSOT)은 `dong-docs/`다. 작업 전 관련 문서를 따른다.
 
+## 승인 게이트 — 최우선 (반드시 준수)
+- **`git commit`, PR 생성, `main` 머지는 사용자가 명시적으로 지시할 때만 수행한다.** 알아서(자동으로) 하지 않는다.
+- 파일 수정·빌드·테스트 등 작업은 진행하되, **커밋/PR/머지 직전에는 반드시 사용자에게 물어보고 승인을 받는다.** "커밋할까요? / PR 올릴까요? / 머지할까요?"
+- 한 번의 승인은 그 1회에만 적용된다. 다음 커밋·PR·머지는 다시 물어본다.
+- `--no-verify`, admin 강제 머지 등 우회 금지.
+
 ## 커밋 — 정본: `dong-docs/prepare/commit-convention.md`
 - 형식 `<type>: <제목>`. type 7개만: `feat fix post docs style refactor chore`. 제목은 한국어 OK·**끝에 마침표 없음**·72자 이내. **스코프 안 씀.**
 - `post` = 글 작성/수정(블로그 전용), 나머지는 표준 의미.

@@ -9,6 +9,7 @@ import { Toc } from "@/widgets/toc";
 import { TagChip } from "@/shared/ui";
 import { formatDate } from "@/shared/lib/date";
 import { mdxComponents } from "./lib/mdx-components";
+import { ViewBeacon } from "./ViewBeacon";
 
 export function PostView({
   post,
@@ -25,6 +26,7 @@ export function PostView({
 
   return (
     <div className="grid grid-cols-[1fr_min(var(--container-reading),100%)_1fr] gap-x-[1.5rem] px-[var(--gutter)] max-[480px]:gap-x-0">
+      <ViewBeacon slug={post.slug} />
       <article className="col-[2] pb-8">
         {tags.length ? (
           <div className="flex flex-wrap gap-[0.4rem]">

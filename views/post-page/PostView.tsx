@@ -16,11 +16,13 @@ export function PostView({
   nav,
   seriesTitle,
   related,
+  views,
 }: {
   post: Post;
   nav: SeriesNavData<Post> | null;
   seriesTitle: string | null;
   related: Post[];
+  views: number | null;
 }) {
   const tags = post.tags ?? [];
 
@@ -42,6 +44,12 @@ export function PostView({
           <time dateTime={post.date}>{formatDate(post.date)}</time>
           <span className="h-[2px] w-[2px] rounded-full bg-stone" aria-hidden="true" />
           <span>{post.metadata.readingTime}분</span>
+          {views !== null ? (
+            <>
+              <span className="h-[2px] w-[2px] rounded-full bg-stone" aria-hidden="true" />
+              <span>조회 {views.toLocaleString()}</span>
+            </>
+          ) : null}
         </div>
         {post.cover ? (
           <Image

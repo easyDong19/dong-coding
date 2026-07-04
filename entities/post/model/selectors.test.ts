@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { getPublishedPosts, getRelatedPosts } from "./selectors";
+import { getPublishedPosts, getRelatedPosts, rankToPosts } from "./selectors";
 import { makePost } from "@/shared/test/factories";
 
 test("날짜 내림차순", () => {
@@ -54,4 +54,31 @@ test("같은 시리즈 글도 태그 겹치면 포함(제외 안 함)", () => {
   const target = tagged("t", ["a"], { series: "s", order: 1 });
   const sibling = tagged("u", ["a"], { series: "s", order: 2 });
   expect(getRelatedPosts(target, [target, sibling]).map((p) => p.slug)).toEqual(["u"]);
+});
+
+const pub = [
+  makePost({ slug: "a", date: "2026-01-03" }),
+  makePost({ slug: "b", date: "2026-01-02" }),
+  makePost({ slug: "c", date: "2026-01-01" }),
+];
+
+test("§3.2-1: 정상 top-N → Redis 순서 유지 + 메타 병합", () => {
+  const r = rankToPosts(["c", "a", "b"], pub);
+  expect(r.map((p) => p.slug)).toEqual(["c", "a", "b"]); // 날짜순 아님 — Redis 순서
+});
+test("§3.2-2: 삭제된 글 slug 포함 → 필터 후 반환", () => {
+  const r = rankToPosts(["a", "ghost", "b"], pub);
+  expect(r.map((p) => p.slug)).toEqual(["a", "b"]);
+});
+test("§3.2-3: 삭제 필터 후 N 미달 → 모자란 대로 반환(채우지 않음)", () => {
+  const r = rankToPosts(["a", "x", "y", "z", "b"], pub);
+  expect(r.map((p) => p.slug)).toEqual(["a", "b"]);
+});
+test("§3.2-4: Redis 빈 배열 → [] (섹션 생략 판정)", () => {
+  expect(rankToPosts([], pub)).toEqual([]);
+});
+test("§3.2-5: draft/비공개 slug는 교집합에서 자연 배제", () => {
+  const publishedOnly = pub; // 호출부가 getPublishedPosts 결과를 넘김
+  const r = rankToPosts(["a", "draftpost", "b"], publishedOnly);
+  expect(r.map((p) => p.slug)).toEqual(["a", "b"]);
 });

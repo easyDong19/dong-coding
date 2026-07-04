@@ -27,3 +27,10 @@ export function getRelatedPosts<T extends PostLike>(target: T, posts: T[], limit
     .slice(0, limit)
     .map((x) => x.p);
 }
+
+export function rankToPosts<T extends PostLike>(slugs: string[], posts: T[]): T[] {
+  const bySlug = new Map(posts.map((p) => [p.slug, p]));
+  return slugs
+    .map((s) => bySlug.get(s))
+    .filter((p): p is T => p !== undefined); // map miss 필터 (pages-plan §5.2)
+}

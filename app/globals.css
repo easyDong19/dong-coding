@@ -109,9 +109,10 @@ blockquote {
   padding-inline: var(--gutter);
 }
 
-/* 본문 상단 버퍼 — 고정 nav 바에 글이 딱 붙지 않도록 (읽기 편의) */
+/* 본문 상단 버퍼 — 고정 nav 바에 글이 딱 붙지 않도록 (읽기 편의).
+   수직 리듬은 vh 기반 (design.md §2.3) — 고정 nav가 따라오므로 과한 상단 여백은 지양 */
 main {
-  padding-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: clamp(1.25rem, 2.5vh, 1.75rem);
 }
 
 a {

@@ -1,14 +1,18 @@
-// 소개 리드(lede) — ProfileHeader 아래 한두 문장.
-// 원본 CSS 캐스케이드 주의: 옛 `.body p` 규칙(margin 1.1rem 0, 잉크색)이
-// 옛 `.ledeLine` 규칙(margin 0.7rem 0)보다 명시도가 높아(0,1,1 > 0,1,0) margin은
-// 1.1rem 0으로 렌더됨 — 아래 mx-0 my-[1.1rem]로 그대로 재현(0.7rem 아님).
+// 소개 — 첫 줄은 리드(lede, `--text-lg`), 이후 문단은 본문(`--text-base`)로 위계를 준다.
+// line-height·자간은 각 크기 페어링(design.md §2.2): lede 1.7/-.02em, 본문 1.78/-.005em.
 export function Intro({ lines }: { lines: string[] }) {
+  const [lede, ...rest] = lines;
   return (
-    <div className="mx-0 mt-0 mb-10">
-      {lines.map((line, i) => (
+    <div className="mx-0 mt-0 mb-6">
+      {lede && (
+        <p className="mx-0 mt-0 mb-5 text-lg leading-[1.7] tracking-[-0.02em] text-ink">
+          {lede}
+        </p>
+      )}
+      {rest.map((line, i) => (
         <p
           key={i}
-          className="mx-0 my-[1.1rem] text-lg leading-[1.7] tracking-[-0.02em] text-ink"
+          className="mx-0 my-[1.1rem] text-base leading-[1.78] tracking-[-0.005em] text-ink"
         >
           {line}
         </p>

@@ -273,10 +273,13 @@ SVG 잎은 `<symbol>`로 한 번 정의 후 `<use>`로 재사용합니다.
 - **배치:** `series-grid`(auto-fill `minmax(15rem, 1fr)`). `/series`는 **진행 중 / 완결 두 그룹**, 빈 그룹은 헤더까지 숨김. 완결 시리즈는 상세 히어로에 "완결" 배지(moss·`--moss-soft` pill).
 - **상태:** hover 시 border moss. 카드 radius `10px`, `--line` 헤어라인.
 
-### 4.10 About 컴포넌트 (ProfileHeader · Timeline · ProjectCard)
+### 4.10 About 컴포넌트 (ProfileHeader · Quote · Timeline · Certifications · ProjectCard)
 > 소스는 `entities/about/data.ts`(TSX+타입 데이터)를 `views/about/` 컴포넌트가 직접 렌더(`pages-plan.md §4`).
-- **ProfileHeader:** avatar(정사각 radius `14px`, `--panel`) + 한 줄 소개(role: Pretendard · stone · weight 500, `h1`). 이름 h1 없이 role을 h1으로 둔다. "글에 집중" 원칙상 사진은 콘텐츠에 복무하므로 환영.
-- **Timeline (이력):** §3 **줄기-잎 모티프 재사용** — 세로 `1px` 라인(`--line`) + 잎 불릿(moss). 연도 `when`은 `tabular-nums`.
+- **ProfileHeader (히어로):** avatar(정사각 radius `14px`, `--panel`; **크기 자유** — `clamp(8rem, 22vw, 11rem)`) + **Quote(role)**. "글에 집중" 원칙상 사진은 콘텐츠에 복무하므로 환영.
+- **Quote (풀쿼트, Notion 스타일):** tagline(role)을 **좌측 moss 바(`3px`) + 텍스트**의 인용 블록으로 렌더(§4.4 blockquote 확장). **tagline을 display h1**(`--text-3xl`, `≤480px` `--text-2xl`·weight 600·ink·`-.02em`). 이름 h1 없이 role을 h1으로 둔다. 서체는 Pretendard 유지(§1 원칙 2) — 위계는 **크기·굵기·자간·moss 바로만**(serif·italic 금지). 사진(`clamp(9rem,26vw,12rem)`)과 균형을 맞춰 히어로 여백을 채운다.
+- **Contact (연락처):** intro 아래 RSS·GitHub·메일 **아이콘 링크 행**(line-style 아이콘 stroke·currentColor, stone → hover moss + `--moss-soft` 칩). 잎 장식이 아니라 기능 링크다(§1 원칙 3). `<nav aria-label="연락처">`, 각 링크 `aria-label`. 데이터는 `entities/about/data.ts`의 `contact`(값 있는 항목만 렌더).
+- **Timeline (학력·이력):** §3 **줄기-잎 모티프 재사용** — 세로 `1px` 라인(`--line`) + 잎 불릿(moss). 연도 `when`은 `tabular-nums`(연도 범위 `2016–2024` 포함). **학력·이력이 같은 컴포넌트**를 공유(섹션 순서: 학력 → 이력 → 자격증 → 프로젝트).
+- **Certifications (자격증):** 자격증명 **pill 칩 행**(flex-wrap) — `--line` 테두리 + ink · `--text-sm` · radius pill. 링크 아님(정적 배지).
 - **ProjectCard:** `projects` 그리드(auto-fill `minmax(14rem, 1fr)`) — 제목 · 설명(stone) · 링크. hover 시 border moss, radius `10px`.
 - **모션:** About은 §2.6 sprout 등장 애니메이션을 **의도적으로 적용하지 않는다**(정적 진입). sprout는 posts 목록 등 다른 곳에서 계속 사용.
 
@@ -287,7 +290,8 @@ SVG 잎은 `<symbol>`로 한 번 정의 후 `<use>`로 재사용합니다.
 - **상태:** 빈 상태 `role="status"`, 에러 `role="alert"` + 포커스 이동. 404/500은 명확성 우선(시적 표현은 보조).
 
 ### 4.12 Footer (바닥글)
-- 상단 `1px` 라인. row: 시그니처(채운 잎 + 문구) ↔ meta-links(RSS/GitHub/메일).
+- 상단 `1px` 라인은 **full-width**(body 직속 `<footer>`에 `border-t`, 내용은 안쪽 `wrap`) — masthead nav의 `border-b`와 같은 패턴으로 정렬. row: 시그니처(채운 잎 + 문구) ↔ **저작권**(© dongCoding). 브랜드·저작권만 둔다.
+- **연락처 아이콘(RSS·GitHub·메일)은 About 콘텐츠로 이동**(§4.10 Contact) — 푸터엔 두지 않는다.
 
 ---
 

@@ -2,8 +2,7 @@ import Link from "next/link";
 import { PostList, type Post } from "@/entities/post";
 import { Eyebrow, EmptyState } from "@/shared/ui";
 
-// "가장 많이 본" 섹션은 조회수 플랜 전까지 미노출 — 최근 글이 화면을 지킴 (pages-plan §5.2)
-export function HomeView({ recent }: { recent: Post[] }) {
+export function HomeView({ recent, popular }: { recent: Post[]; popular: Post[] }) {
   if (recent.length === 0) {
     return (
       <div className="wrap">
@@ -18,6 +17,14 @@ export function HomeView({ recent }: { recent: Post[] }) {
 
   return (
     <div className="wrap">
+      {popular.length > 0 && (
+        <section className="mb-[2.4rem]">
+          <div className="mb-[1.2rem] flex items-baseline gap-[0.7rem]">
+            <Eyebrow>가장 많이 본</Eyebrow>
+          </div>
+          <PostList posts={popular} />
+        </section>
+      )}
       <section>
         <div className="mb-[1.2rem] flex items-baseline gap-[0.7rem]">
           <Eyebrow>최근 글</Eyebrow>

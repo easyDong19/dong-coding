@@ -33,6 +33,21 @@ test("§4.2-5: ZSCORE 실패 → null (뷰에서 숫자 숨김)", async () => {
   const { readScore } = await import("./read");
   expect(await readScore("a")).toBeNull();
 });
+test("readScore: 연결됨 & 점수 있음 → 그 숫자", async () => {
+  getRedis.mockReturnValue({ zscore: async () => 7 });
+  const { readScore } = await import("./read");
+  expect(await readScore("a")).toBe(7);
+});
+test("readScore: 연결됨 & 미열람(nil) → 0 (숨김 아님, 사용자 결정 2026-07-06)", async () => {
+  getRedis.mockReturnValue({ zscore: async () => null });
+  const { readScore } = await import("./read");
+  expect(await readScore("a")).toBe(0);
+});
+test("readScore: env 미설정 → null (숨김)", async () => {
+  getRedis.mockReturnValue(null);
+  const { readScore } = await import("./read");
+  expect(await readScore("a")).toBeNull();
+});
 
 test("withTimeout: 타임아웃 후 늦게 reject되는 op → 폴백 반환(throw/누출 없음)", async () => {
   vi.useFakeTimers();

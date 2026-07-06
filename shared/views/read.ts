@@ -26,13 +26,19 @@ export async function readTopSlugs(n: number): Promise<string[]> {
   }
 }
 
+// 타임아웃 폴백을 "미열람(nil→0)"과 구분하기 위한 센티널.
+// null = 불가용(미설정·타임아웃·에러) → 숨김 / 0 = 연결됨·미열람 → "조회 0" 표기 (사용자 결정 2026-07-06)
+const TIMEOUT = Symbol("timeout");
+
 export async function readScore(slug: string): Promise<number | null> {
   const redis = getRedis();
-  if (!redis) return null;
+  if (!redis) return null; // 미설정 → 숨김
   try {
     const op = redis.zscore(VIEWS_KEY, slug) as Promise<number | null>;
-    return await withTimeout(op, 1500, null);
+    const s = await withTimeout<number | null | typeof TIMEOUT>(op, 1500, TIMEOUT);
+    if (s === TIMEOUT) return null; // 타임아웃 = 불가용 → 숨김
+    return typeof s === "number" ? s : 0; // 연결됨: 점수 or 미열람 0
   } catch {
-    return null;
+    return null; // 에러 = 불가용 → 숨김
   }
 }

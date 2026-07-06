@@ -1,8 +1,8 @@
 import { expect, test } from "vitest";
-import { hashIp, dedupKey } from "./keys";
+import { hashIp, dedupKey, namespace } from "./keys";
 
-test("dedupKey 형식 고정 — dedup:{ipHash}:{slug}", () => {
-  expect(dedupKey("abc123", "hello")).toBe("dedup:abc123:hello");
+test("dedupKey 형식 고정 — dedup:{ns}:{ipHash}:{slug}", () => {
+  expect(dedupKey("abc123", "hello")).toBe(`dedup:${namespace}:abc123:hello`);
 });
 test("hashIp: 같은 IP → 같은 해시(결정적)", () => {
   expect(hashIp("1.2.3.4")).toBe(hashIp("1.2.3.4"));

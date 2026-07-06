@@ -288,8 +288,15 @@ prepare: ({ posts, series }) => {
 - **선택:** `app/sitemap.ts` + `app/robots.ts`. `next-sitemap` **사용 안 함** — 프레임워크 네이티브로 충분하고 의존성 하나 줄인다.
 - **접근:** `@/entities/post`·`@/entities/series` public API 경유.
 
-### 6.2 이미지 → **Vercel 재최적화 끄기**
-- **`images.unoptimized: true`**(또는 커스텀 loader). Velite가 빌드타임에 이미 blur+치수를 산출하므로 Vercel 이미지 최적화 쿼터(Hobby)를 쓰지 않는다.
+### 6.2 이미지 → **Vercel 전송 최적화 ON + 원본 경량화 파이프라인**
+- **결정 갱신(2026-07-06, 정본: `specs/2026-07-06-image-optimization-design.md`):** 기존 `images.unoptimized: true` 방침을 **뒤집는다.** Velite는 이미지를 "최적화"하지 않고(치수·blur만 추출하고 원본을 그대로 복사) 본문 이미지는 네이티브 `<img>`라, 켜져 있던 `unoptimized`는 cover조차 원본 바이트를 그대로 전송하게 만들었다. 고용량 원본이 repo·전송 양쪽을 오염시키는 문제.
+- **파이프라인(4축):**
+  - **전송:** `next.config`에서 `unoptimized` 제거 → Vercel이 요청 시 리사이즈/webp·avif 변환.
+  - **본문:** `![](./x.png)`로 작성 → `content/lib/rehype-image-dimensions.ts`가 빌드 때 치수를 주입 → `shared/mdx/PostImage.tsx`가 Next `<Image>`로 렌더(치수 없거나 원격 URL이면 native `<img>` 폴백).
+  - **원본:** 커밋 전 `pnpm img:optimize`(sharp, 최대 **1600px**·JPEG **q80**, 제자리 덮어쓰기)로 repo를 경량화.
+  - **게이트:** `pnpm build` 앞의 `scripts/check-image-size.mjs`가 content 이미지 **500KB** 초과 시 빌드를 실패시킨다.
+- **정직성 노트:** 고디테일 이미지는 `img:optimize`(1600px·q80) 후에도 500KB를 넘을 수 있다. 그때 게이트는 계속 실패하므로 **치수/품질을 더 낮추거나** 정책값을 조정한다. (일반 사진은 1600px·q80에서 수백 KB로 통과.)
+- **참고:** Velite 에셋 출력(`public/static/`)은 빌드 산출물이라 gitignore한다.
 
 ### 6.3 린트·포맷 → **ESLint 9 flat + Prettier**
 - **왜:** `next lint`가 Next 16에서 제거됨 → `eslint.config.mjs` 직접 구성. `lint` 스크립트는 `eslint .`.

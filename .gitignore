@@ -43,6 +43,8 @@ next-env.d.ts
 
 # velite build output
 .velite
+# velite 에셋 출력(이미지 복사·최적화본) — 빌드 산출물이라 추적 안 함
+/public/static
 
 # SDD progress ledger (scratch)
 .superpowers/

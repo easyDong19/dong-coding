@@ -1,6 +1,8 @@
 import { posts as raw } from "@/.velite";
+import { getSiteUrl } from "@/shared/config";
 import { readTopSlugs } from "@/shared/views";
 import { getPublishedPosts, getRelatedPosts, rankToPosts } from "./model/selectors";
+import { toFeedItems } from "./model/feed-items";
 
 // .velite 로드는 오직 이 진입점에서만 (경량 FSD, tech-stack §3.1). 라우트/뷰는 여기 경유.
 export function listPublishedPosts() {
@@ -18,9 +20,14 @@ export async function listPopularPosts(n: number) {
   const slugs = await readTopSlugs(n);
   return rankToPosts(slugs, getPublishedPosts(raw)); // 교집합 = draft/삭제 자연 배제
 }
+export function listFeedItems() {
+  return toFeedItems(getPublishedPosts(raw), getSiteUrl()); // draft/삭제 자연 배제 + 절대 URL
+}
 
 // 순수 셀렉터·타입도 계속 재노출(테스트·조합용)
 export * from "./model/selectors";
 export { PostList } from "./ui/PostList";
 export type { Post } from "@/.velite";
 export { pickDek } from "./model/dek";
+export { toFeedItems } from "./model/feed-items";
+export type { FeedItem } from "./model/feed-items";

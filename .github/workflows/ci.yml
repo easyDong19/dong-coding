@@ -36,5 +36,10 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      # RSS(/feed.xml)는 빌드타임 프리렌더 시 getSiteUrl()로 절대 URL을 만든다.
+      # env 누락 시 의도적으로 throw(fail-fast, test-plan §5.1-4)하므로 CI 빌드에도 주입한다.
+      # 실 배포 도메인은 Vercel env에서 별도 설정. CI 검사용이라 repo 변수 없으면 기본값 사용.
       - name: Build
         run: pnpm build
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://dongcoding.dev' }}

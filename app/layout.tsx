@@ -9,6 +9,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "dongCoding",
   description: "코드와 식물 사이, 천천히 자라는 기록",
+  alternates: {
+    types: { "application/rss+xml": "/feed.xml" }, // RSS 리더 auto-discovery
+  },
 };
 
 export default function RootLayout({

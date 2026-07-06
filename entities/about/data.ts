@@ -22,10 +22,9 @@ export const aboutData: AboutData = {
     '단편적인 현상보다 그 뒤에 있는 맥락과 목적을 먼저 보려 합니다. 기술을 선택할 때도 유행이나 익숙함보다, 지금 해결해야 하는 문제와 주어진 제약조건을 기준으로 판단하려고 합니다.',
     '좋은 개발은 단순히 코드를 잘 작성하는 것을 넘어, 시간과 비용, 팀의 상황, 유지보수 가능성, 사용자 경험 사이에서 적절한 균형을 찾는 일이라고 생각합니다.',
   ],
-  // TODO(공개 전 확인): rss 경로는 RSS 구현 후 확정. 값 비우면 해당 아이콘 미노출.
   contact: {
     github: 'https://github.com/easyDong19',
-    rss: '/rss.xml',
+    rss: '/feed.xml',
     email: 'mailto:ymh1353@naver.com',
   },
   education: [

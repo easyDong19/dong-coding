@@ -14,7 +14,7 @@ export async function GET(): Promise<Response> {
     link: site,
     language: SITE_LANGUAGE,
     copyright: SITE_COPYRIGHT,
-    feedLinks: { rss2: `${site}/feed.xml` },
+    feedLinks: { rss: `${site}/feed.xml` },
   });
 
   for (const item of listFeedItems()) {

@@ -16,7 +16,12 @@ async function fixtureImage(w: number, h: number) {
 }
 
 function imgNode(src: string) {
-  return { type: "element", tagName: "img", properties: { src }, children: [] };
+  return {
+    type: "element",
+    tagName: "img",
+    properties: { src } as Record<string, unknown>,
+    children: [],
+  };
 }
 
 test("로컬 img에 원본 width/height 주입", async () => {

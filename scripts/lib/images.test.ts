@@ -24,6 +24,7 @@ test("optimizeBuffer: 큰 이미지를 maxWidth로 축소하고 더 작게 만�
   }).png().toBuffer();
   const out = await optimizeBuffer(big, { maxWidth: 1600, jpegQuality: 80 });
   expect(out).not.toBeNull();
+  if (out === null) throw new Error("optimizeBuffer returned null");
   const meta = await sharp(out).metadata();
   expect(meta.width).toBe(1600);
   expect(out.length).toBeLessThan(big.length);

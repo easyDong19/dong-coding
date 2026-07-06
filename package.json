@@ -14,6 +14,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "img:optimize": "node scripts/optimize-images.mjs",
     "prepare": "husky"
   },
   "dependencies": {

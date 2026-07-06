@@ -1,8 +1,6 @@
 import { getRedis } from "./client";
-import { dedupKey } from "./lib/keys";
+import { dedupKey, viewsKey } from "./lib/keys";
 import { withTimeout } from "./read";
-
-const VIEWS_KEY = "views";
 
 export async function recordView(input: { slug: string; ipHash: string }): Promise<void> {
   const redis = getRedis();
@@ -12,7 +10,7 @@ export async function recordView(input: { slug: string; ipHash: string }): Promi
     const set = redis.set(dedupKey(input.ipHash, input.slug), 1, { nx: true, ex: 86400 });
     const first = await withTimeout(set, 2000, null);
     if (first === "OK") {
-      await withTimeout(redis.zincrby(VIEWS_KEY, 1, input.slug), 2000, 0);
+      await withTimeout(redis.zincrby(viewsKey, 1, input.slug), 2000, 0);
     }
   } catch {
     // swallow — 카운트만 안 오름, UI 영향 0 (pages-plan §5.2)

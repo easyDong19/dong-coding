@@ -1,6 +1,5 @@
 import { getRedis } from "./client";
-
-const VIEWS_KEY = "views";
+import { viewsKey } from "./lib/keys";
 
 /**
  * ms 초과 시 fallback으로 resolve (읽기 1.5s / pages-plan §5.3).
@@ -19,7 +18,7 @@ export async function readTopSlugs(n: number): Promise<string[]> {
   const redis = getRedis();
   if (!redis) return []; // env 미설정 → 호출 안 함
   try {
-    const op = redis.zrange<string[]>(VIEWS_KEY, 0, n - 1, { rev: true });
+    const op = redis.zrange<string[]>(viewsKey, 0, n - 1, { rev: true });
     return await withTimeout(op, 1500, []);
   } catch {
     return []; // 절대 규칙: 렌더를 못 깨뜨림
@@ -34,7 +33,7 @@ export async function readScore(slug: string): Promise<number | null> {
   const redis = getRedis();
   if (!redis) return null; // 미설정 → 숨김
   try {
-    const op = redis.zscore(VIEWS_KEY, slug) as Promise<number | null>;
+    const op = redis.zscore(viewsKey, slug) as Promise<number | null>;
     const s = await withTimeout<number | null | typeof TIMEOUT>(op, 1500, TIMEOUT);
     if (s === TIMEOUT) return null; // 타임아웃 = 불가용 → 숨김
     return typeof s === "number" ? s : 0; // 연결됨: 점수 or 미열람 0

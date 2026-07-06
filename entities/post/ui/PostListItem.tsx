@@ -4,6 +4,7 @@ import type { Post } from "@/.velite";
 import { TagChip } from "@/shared/ui";
 import { formatDate } from "@/shared/lib/date";
 import { cn } from "@/shared/lib/cn";
+import { pickDek } from "../model/dek";
 
 type Props = {
   post: Post;
@@ -12,7 +13,7 @@ type Props = {
 };
 
 export function PostListItem({ post, episode }: Props) {
-  const dek = post.description ?? post.excerpt;
+  const dek = pickDek(post);
   const tags = post.tags ?? [];
 
   return (

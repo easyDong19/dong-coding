@@ -23,3 +23,4 @@ export async function listPopularPosts(n: number) {
 export * from "./model/selectors";
 export { PostList } from "./ui/PostList";
 export type { Post } from "@/.velite";
+export { pickDek } from "./model/dek";

@@ -9,6 +9,7 @@ export type PostLike = {
   series?: string;
   order?: number;
   description?: string;
+  excerpt?: string;
 };
 
 export function makePost(o: Partial<PostLike> = {}): PostLike {

@@ -2,7 +2,7 @@ import { stat } from "node:fs/promises";
 import { walkImages, collectOversized, GATE_EXT } from "./lib/images.mjs";
 
 const CONTENT = new URL("../content/", import.meta.url).pathname;
-const LIMIT = 512 * 1024; // 500KB
+const LIMIT = 500 * 1024; // 500KB
 
 const files = await walkImages(CONTENT, GATE_EXT);
 const entries = await Promise.all(

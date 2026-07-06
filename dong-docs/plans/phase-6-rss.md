@@ -351,7 +351,7 @@ export async function GET(): Promise<Response> {
     link: site,
     language: SITE_LANGUAGE,
     copyright: SITE_COPYRIGHT,
-    feedLinks: { rss2: `${site}/feed.xml` },
+    feedLinks: { rss: `${site}/feed.xml` }, // ⚠️ 키는 `rss` (feed 패키지가 rss2 self-link 방출 시 읽는 키). `rss2`는 인덱스 시그니처 때문에 타입은 통과하나 런타임 무시됨
   });
 
   for (const item of listFeedItems()) {

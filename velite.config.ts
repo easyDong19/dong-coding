@@ -6,6 +6,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import { validateSeriesIntegrity } from "./content/lib/validate-series";
+import rehypeImageDimensions from "./content/lib/rehype-image-dimensions";
 
 // 코드 하이라이트 — design.md §4.4 예외(코드블록 한정): 브랜드 5색 + 종이·이끼의 사촌색 3(문자열=테라코타·숫자=오커·함수=딥틸).
 // 컨테이너(--panel/--line/radius)·인라인 칩은 예외 밖 — 여전히 브랜드 토큰.
@@ -94,6 +95,7 @@ export default defineConfig({
     rehypePlugins: [
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: "wrap" }],
+      rehypeImageDimensions,
       [
         rehypePrettyCode,
         { theme: { light: codeThemeLight, dark: codeThemeDark }, keepBackground: false, defaultColor: false },

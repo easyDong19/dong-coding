@@ -8,12 +8,13 @@
     "dev": "run-p dev:*",
     "dev:content": "velite --watch",
     "dev:next": "next dev --turbopack",
-    "build": "velite --clean --strict && next build",
+    "build": "node scripts/check-image-size.mjs && velite --clean --strict && next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "img:optimize": "node scripts/optimize-images.mjs",
     "prepare": "husky"
   },
   "dependencies": {
@@ -44,6 +45,7 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
+    "sharp": "^0.34.5",
     "shiki": "^4.3.0",
     "tailwindcss": "^4.3.2",
     "typescript": "^5",

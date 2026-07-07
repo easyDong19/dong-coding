@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getPostBySlug, getRelated, listPublishedPosts } from "@/entities/post";
 import { getSeriesNavForPost, getSeriesDetail } from "@/entities/series";
 import { readScore } from "@/shared/views";
+import { SITE_NAME } from "@/shared/config";
 import { PostView } from "@/views/post-page/PostView";
 
 export const revalidate = 86400; // ZSCORE 신선도 — Home과 동일 (pages-plan §5)
@@ -20,7 +21,26 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
-  return { title: post.title, description: post.description ?? post.excerpt };
+  const description = post.description ?? post.excerpt;
+  // openGraph/twitter는 얕은 병합 → layout 값이 통째로 대체되므로 필드 전부 명시.
+  // og:image는 파일 컨벤션(opengraph-image.tsx)이 별도로 자동 주입한다.
+  return {
+    title: post.title,
+    description,
+    openGraph: {
+      type: "article",
+      siteName: SITE_NAME,
+      locale: "ko_KR",
+      title: post.title,
+      description,
+      url: `/posts/${post.slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+    },
+  };
 }
 
 export default async function PostDetailPage({ params }: { params: Promise<{ slug: string }> }) {

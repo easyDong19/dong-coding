@@ -100,10 +100,12 @@ shared/
 
 ## 11. 완료 기준
 
-- [ ] `SITE_DESCRIPTION` 교체 + `layout.tsx` 상수화.
-- [ ] `layout.tsx`에 `metadataBase`·`twitter.card` 반영.
-- [ ] `shared/og/card.tsx`·`font.ts` 작성, Pretendard OTF 추가.
-- [ ] `app/opengraph-image.tsx`(사이트 기본) 생성.
-- [ ] `app/posts/[slug]/opengraph-image.tsx`(cover/폴백 분기) 생성.
-- [ ] `pnpm build` 성공 + 각 라우트 `og:image` 절대 URL·PNG 생성 확인.
-- [ ] `pnpm typecheck`·`pnpm lint`·`pnpm test` 그린.
+- [x] `SITE_DESCRIPTION` 교체(→ "코드는 쉽지, 말을 보여줘") + `layout.tsx` 상수화.
+- [x] `layout.tsx`에 `metadataBase`·`openGraph`·`twitter.card` 반영. 글 상세 `generateMetadata`도 명시적 세팅(얕은 병합 대응).
+- [x] `shared/og/card.tsx`·`font.ts` 작성. 폰트는 woff2→static ttf(400·700, 라틴+한글 음절 subset) 변환 — `scripts/build-og-fonts.py`.
+- [x] `app/opengraph-image.tsx`(사이트 기본) 생성.
+- [x] `app/posts/[slug]/opengraph-image.tsx`(cover/폴백 분기) 생성.
+- [x] `pnpm build` 성공 + 홈·글·시리즈·About `og:image` 절대 URL·PNG 생성 확인(카드 시각 검증 완료).
+- [x] `pnpm typecheck`·`pnpm lint`·`pnpm test`(111) 그린.
+
+> **폰트 구현 메모(§8 확정):** satori는 woff2 미지원 → 순수 ttf 필요. `font.flavor = None`으로 저장해야 함(woff2에서 로드 시 flavor가 woff2로 남아 "Unsupported OpenType signature wOF2" 발생). 한자·희귀 심볼 제외 subset으로 각 ~2.5MB(빌드타임 전용, 클라이언트 번들 무관).

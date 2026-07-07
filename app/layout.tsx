@@ -4,13 +4,31 @@ import { LeafSymbols } from "@/shared/ui";
 import { themeInitScript } from "@/shared/theme";
 import { Masthead } from "@/widgets/masthead";
 import { Footer } from "@/widgets/footer";
+import { SITE_NAME, SITE_DESCRIPTION, getSiteUrl } from "@/shared/config";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "dongCoding",
-  description: "코드와 식물 사이, 천천히 자라는 기록",
+  // 모든 og/twitter 이미지·URL이 절대 URL로 자동 해결됨(dev: .env.local, prod: env 필수).
+  metadataBase: new URL(getSiteUrl()),
+  title: SITE_NAME,
+  description: SITE_DESCRIPTION,
   alternates: {
     types: { "application/rss+xml": "/feed.xml" }, // RSS 리더 auto-discovery
+  },
+  // og:image는 opengraph-image 파일 컨벤션이 자동 주입. 여기선 텍스트 필드만(사이트 기본값,
+  // 글 상세는 generateMetadata에서 override). 자동 추론에 의존하지 않고 명시적으로 세팅.
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    locale: "ko_KR",
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
   },
 };
 

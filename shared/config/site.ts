@@ -1,6 +1,6 @@
 // 사이트 절대 URL·메타 — RSS(및 향후 sitemap/OG)의 단일 소스.
 export const SITE_NAME = "dongCoding";
-export const SITE_DESCRIPTION = "코드와 식물 사이, 천천히 자라는 기록";
+export const SITE_DESCRIPTION = "코드는 쉽지, 말을 보여줘";
 export const SITE_LANGUAGE = "ko";
 export const SITE_COPYRIGHT = "© 2026 dongCoding. All rights reserved.";
 

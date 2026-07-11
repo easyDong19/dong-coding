@@ -3,11 +3,18 @@
 export interface AboutData {
   profile: { role: string; src: string; alt: string };
   intro: string[];
+  // 기술 스택 — 자격증과 같은 pill 행으로 렌더.
+  skills: string[];
   // 연락처 — About 콘텐츠의 아이콘 링크 행(design.md §4.10). 값이 있는 항목만 렌더.
   contact: { github?: string; rss?: string; email?: string };
   // note — what 아래 한 단계 낮은 위계로 렌더되는 부가 정보(학점 등). 값 있을 때만 표시.
   // links — 관련 문서 칩(GitHub 등). 값 있을 때만 표시.
-  education: { when: string; what: string; note?: string; links?: { label: string; href: string }[] }[];
+  education: {
+    when: string;
+    what: string;
+    note?: string;
+    links?: { label: string; href: string }[];
+  }[];
   // details — 회사 아래 갈라지는 세부 이력(줄기-잎 가지, design.md 모티프). 값 있을 때만 표시.
   timeline: {
     when: string;
@@ -18,7 +25,11 @@ export interface AboutData {
   }[];
   certifications: string[];
   // links — 카드 하단 링크 칩(GitHub·사이트 등). href로 아이콘 자동 선택.
-  projects: { title: string; description: string; links?: { label: string; href: string }[] }[];
+  projects: {
+    title: string;
+    description: string;
+    links?: { label: string; href: string }[];
+  }[];
 }
 
 export const aboutData: AboutData = {
@@ -32,6 +43,7 @@ export const aboutData: AboutData = {
     '좋은 개발은 단순히 코드를 잘 작성하는 것을 넘어,',
     '시간과 비용, 팀의 상황, 유지보수 가능성, 사용자 경험 사이에서 적절한 균형을 찾는 일이라고 생각합니다.',
   ],
+  skills: ['JavaScript', 'TypeScript', 'React.js', 'Next.js'],
   contact: {
     github: 'https://github.com/easyDong19',
     rss: '/feed.xml',
@@ -39,23 +51,41 @@ export const aboutData: AboutData = {
   },
   education: [
     { when: '2016–2018', what: '한국디지털미디어고등학교 해킹방어과' },
-    { when: '2019–2024', what: '한양대학교 산업공학과 학사', note: '학점 3.87 / 4.5' },
+    {
+      when: '2019–2024',
+      what: '한양대학교 산업공학과 학사',
+      note: '학점 3.87 / 4.5',
+    },
   ],
   timeline: [
     {
-      when: '2025.07.01 – 현재',
+      when: '2024.07 – 현재',
       what: 'SAFEAI',
-      // 세부 이력은 여기에 추가됨 (줄기에서 갈라지는 작은 잎으로 렌더)
-      details: [],
+      links: [
+        {
+          label: '경력기술서',
+          href: 'https://github.com/easyDong19/myPortfolio/blob/main/%EA%B2%BD%EB%A0%A5%EA%B8%B0%EC%88%A0%EC%84%9C.pdf',
+        },
+      ],
+      // 세부 이력은 경력기술서 PDF로 대체 (칩 링크).
     },
     {
       when: '2024.01.02–02.28',
       what: 'FINX LAB 겨울방학 인턴',
       links: [
-        { label: 'intern_project', href: 'https://github.com/easyDong19/intern_project' },
+        {
+          label: 'intern_project',
+          href: 'https://github.com/easyDong19/intern_project',
+        },
         { label: 'portfolio', href: 'https://github.com/easyDong19/portfolio' },
-        { label: 'capstone_2', href: 'https://github.com/easyDong19/capstone_2' },
-        { label: 'Volatility_Forecasting', href: 'https://github.com/easyDong19/Volatility_Forecasting' },
+        {
+          label: 'capstone_2',
+          href: 'https://github.com/easyDong19/capstone_2',
+        },
+        {
+          label: 'Volatility_Forecasting',
+          href: 'https://github.com/easyDong19/Volatility_Forecasting',
+        },
       ],
     },
   ],

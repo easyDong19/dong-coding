@@ -113,5 +113,12 @@ export const aboutData: AboutData = {
         { label: '사이트', href: 'https://easydong19.github.io/eduForSori/' },
       ],
     },
+    {
+      title: 'one-pointer',
+      description: '손코딩 없이 바이브 코딩만으로 만든 전문가 매칭 플랫폼',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/easyDong19/one-pointer' },
+      ],
+    },
   ],
 };

@@ -23,6 +23,8 @@ export function AboutView({ about }: { about: AboutData }) {
         <SocialLinks contact={about.contact} />
         {/* 소개 블록 ↔ 이력 블록 구분 (design.md §2.5 헤어라인) */}
         <hr className="h-px w-full border-0 bg-line" />
+        <h2 className={h2Class}>기술</h2>
+        <Certifications items={about.skills} />
         <h2 className={h2Class}>학력</h2>
         <Timeline items={about.education} />
         <h2 className={h2Class}>이력</h2>

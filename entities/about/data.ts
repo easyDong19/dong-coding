@@ -64,7 +64,7 @@ export const aboutData: AboutData = {
       links: [
         {
           label: '경력기술서',
-          href: 'https://github.com/easyDong19/myPortfolio/blob/main/%EA%B2%BD%EB%A0%A5%EA%B8%B0%EC%88%A0%EC%84%9C.pdf',
+          href: 'https://github.com/easyDong19/easyDong19/blob/main/resume.pdf',
         },
       ],
       // 세부 이력은 경력기술서 PDF로 대체 (칩 링크).

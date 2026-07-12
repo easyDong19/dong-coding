@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pretendard, jetbrains } from "./fonts";
 import { LeafSymbols } from "@/shared/ui";
-import { themeInitScript } from "@/shared/theme";
+import { ThemeInitScript } from "@/shared/theme";
 import { Masthead } from "@/widgets/masthead";
 import { Footer } from "@/widgets/footer";
 import { SITE_NAME, SITE_DESCRIPTION, getSiteUrl } from "@/shared/config";
@@ -45,7 +45,7 @@ export default function RootLayout({
     >
       <head>
         {/* 렌더 전 테마 반영 — CSS보다 먼저 실행돼야 하므로 <head> 최상단 (design.md §2.1) */}
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <ThemeInitScript />
       </head>
       <body>
         <LeafSymbols />

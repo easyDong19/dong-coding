@@ -1,0 +1,134 @@
+---
+title: '오해하기 쉬운 단순함과 쉬움의 차이'
+slug: simple-is-easy
+date: 2026-06-05
+description: "'단순함'은 '쉬움'이 아니다."
+tags: [개발철학]
+draft: false
+---
+
+## 들어가며
+
+갓 프로그래밍을 배웠던 시절, 사이드 프로젝트를 하면서, "나중에"라는 말로
+온갖 추상화와 설계를 미리 넣었던 기억이 있다. 당시 기술의 우월성에
+취해 한껏 꺼드럭대며 GoF 디자인패턴과 클린 코드 원칙을 적용했다.
+
+결국 그 프로젝트는 목적에 비해 규모가 과해
+통제불가능한 복잡성을 낳았고 온갖 에러로 유지보수마저 불가능해졌다.
+그러다 흥미를 잃고 끝까지 완주하지 못했다.
+나는 진짜 문제를 푸는 대신, 풀지도 않을 가짜 문제와 씨름한 것이다.
+
+그때의 나는 복잡한 설계가 곧 실력이라 믿었다. 단순한 코드는 초보의 것이라 여겼고.
+몇 년이 지나서야 그 믿음이 정확히 거꾸로였음을 알았다. 하지만 "단순하게 하라"는
+말을 뒤늦게 새기고 나서도, 나는 또 다른 착각 하나를 오래 붙잡고 있었다.
+
+{/* 이 글을 왜 쓰는지, 무엇을 말하려는지 한두 문단. */}
+
+## 우리가 아는 단순함
+
+단순하게 하라는 조언은 새롭지 않다. 멀리는 오컴의 면도날까지 거슬러 올라간다.
+
+> "어떤 현상을 설명할 때 필요 이상의 복잡한 가설을 세우지 마라."
+
+이를 소프트웨어 설계에 옮기면 "같은 동작을 구현하는 여러 방법이 있다면,
+가장 적은 개념과 구조로 해내는 쪽을 택하라"가 된다. 우리가 익히 아는
+격언들도 같은 뜻을 갖고 있다.
+
+> - **KISS** (Keep It Simple, Stupid) — 단순하게 유지하라.
+> - **YAGNI** (You Aren't Gonna Need It) — 지금 안 쓸 기능은 미리 만들지 마라.
+
+```ts
+// "언젠가 SMS·푸시도 보낼지 모른다"며 미리 다 설계했다
+interface NotificationStrategy {
+  send(message: string): void;
+}
+
+class EmailStrategy implements NotificationStrategy {
+  /* ... */
+}
+class SmsStrategy implements NotificationStrategy {
+  /* 아직 안 씀 */
+}
+class PushStrategy implements NotificationStrategy {
+  /* 아직 안 씀 */
+}
+
+class NotificationManager {
+  constructor(private strategy: NotificationStrategy) {}
+  notify(msg: string) {
+    this.strategy.send(msg);
+  }
+}
+
+// ✅ 단순: 지금 필요한 것만 만든다.
+// SMS가 진짜로 필요해지는 날, 그때 추상화해도 늦지 않다
+function sendEmail(message: string) {
+  // 이메일 전송 로직
+}
+```
+
+여기까지는 누구나 고개를 끄덕인다. 문제는 그다음이다.
+오컴의 면도날은 곧잘 "단순하게 짜라"로 요약되고, 우리는 은연중에
+단순한 것이 곧 쉬운 것이라 여긴다. 면도날은 '**쉬움**'을 말한 적이 없는데도,
+우리가 그 단어를 슬쩍 끼워 넣는 것이다.
+
+{/* 원래 정의와 흔한 통념. */}
+
+## 단순함 ≠ 쉬움
+
+<YouTube id="SxdOUGdseq4" title="Rich Hickey — Simple Made Easy" />
+
+Rich Hickey는 "**Simple Made Easy**"라는 강연에서 두 단어의
+어원으로 이 구분을 세운다. Simple은 'sim-plex(한 겹)' — 얽혀 있지 않다는 뜻이고,
+Easy는 흔히 'adjacent(가까이 있다)'로 풀이된다 — 내 손에 익어 쉽게 잡힌다는 것이다.
+즉 단순함은 **대상의 속성**이고, 쉬움은 **나와의 거리**다.
+
+코드를 보자.
+
+### 쉽지만 복잡한 예시
+
+```ts
+interface RequestState {
+  isLoading: boolean;
+  data: User | null;
+  error: Error | null;
+}
+```
+
+쉽게 짜진다. 그런데 하나씩 따져보면 쉽지 않다 세 필드가 엮여있다.
+
+- isLoading: true인데 data도 차 있으면?
+- data와 error가 둘 다 채워지면?
+- 셋 다 비어 있는 초기 상태는 뭐라고 부르지?
+
+유효한 조합의 규칙이 코드에 없고, 내 머릿속에만 암묵적으로 존재한다.
+코드만 봐서는 이 얽힘을 풀 수 없다. 이 얽힘이 바로 '복잡함'이다.
+
+### 안 쉽지만 단순한 예시
+
+```ts
+// 각 상태가 자신에게 필요한 데이터만 들고 있다.
+type RequestState =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success'; data: User }
+  | { status: 'error'; error: Error };
+```
+
+단순하다. 상태끼리 얽혀 있지 않고, 각자 독립적이다.
+머릿 속에 있던 암묵 규칙이 코드로 드러났다.  
+코드가 그 자체로 힌트가 되는 것이다.
+
+그런데 이걸 짜는 것은 쉽지 않다.
+짜기 전에 도메인의 실제 상태가 뭔지 열거해야 한다. `idle`이 필요한가?
+`refreshing`도 있나? 가능한 상태를 전부 고려해야 한다.
+이 과정은 고통스럽다. 당장 결과로 안 보이니 하고 싶지 않다.
+
+{/* 이 글의 핵심. 단순함과 쉬움이 어떻게 다른지. */}
+
+단순함은 비용을 앞에서 치르고, 쉬움은 비용을 뒤로 미룬다.
+사람은 쉬움에 쉽게 손이 간다. 당장의 이득에 눈이 가는 건 어쩔 수 없는 본능일 것이다.
+
+하지만 '쉬움'이라는 말이 이미 함정이다.
+쉬운 건 손이 쉽다는 뜻이지, 앞길이 쉽다는 뜻이 아니다.
+우리가 쉬움에 손을 뻗을 때, 정작 고르는 건 단순함이 아니라 익숙함이다.

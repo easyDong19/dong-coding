@@ -60,7 +60,6 @@ const posts = defineCollection({
       draft: s.boolean().default(false),
       updated: s.isodate().optional(),
       slug: s.slug("post"),
-      metadata: s.metadata(),
       toc: s.toc(),
       excerpt: s.excerpt(),
       body: s.mdx(),

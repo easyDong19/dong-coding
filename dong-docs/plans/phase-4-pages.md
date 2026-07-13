@@ -108,7 +108,7 @@ git add -A && git commit -m "feat: app shell (masthead, footer, 404/error states
 
 - [ ] **Step 1: 줄기-잎 목록 (design.md §3·§4.2)**
 
-`ol.stem`(줄기 `::before` 1px)·잎 노드(`#leaf`)·제목·dek(`description`/`excerpt`)·meta(`date` tabular-nums·읽기시간·태그칩). 커버 있으면 고정폭 썸네일(리듬 유지). hover 시 title moss.
+`ol.stem`(줄기 `::before` 1px)·잎 노드(`#leaf`)·제목·dek(`description`/`excerpt`)·meta(`date` tabular-nums·태그칩). 커버 있으면 고정폭 썸네일(리듬 유지). hover 시 title moss.
 
 - [ ] **Step 2: 검증 + 커밋**
 
@@ -227,7 +227,7 @@ git add -A && git commit -m "feat: Series list (grouped) + detail (ordered)"
 
 - [ ] **Step 2: 읽기 화면 (design.md §4.4)**
 
-post-tag·H1(clamp)·byline(date tabular-nums·읽기시간)·본문(p/H2 ¶마커/blockquote moss/잎 불릿 ul/코드칩·블록). 커버 있으면 히어로.
+post-tag·H1(clamp)·byline(date tabular-nums)·본문(p/H2 ¶마커/blockquote moss/잎 불릿 ul/코드칩·블록). 커버 있으면 히어로.
 
 - [ ] **Step 3: series-nav (design.md §4.6, pages-plan §7.1)**
 

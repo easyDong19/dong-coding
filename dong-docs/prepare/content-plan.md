@@ -22,7 +22,6 @@
 | 필드 | 출처 | 쓰임 |
 |---|---|---|
 | `slug` | `s.slug()` (파일명) | URL `/blog/[slug]` |
-| `readingTime` · `wordCount` | `s.metadata()` | 메타 "읽기시간" |
 | `toc` | `s.toc()` | 따라다니는 목차 (빌드타임, 런타임 파싱 없음) |
 | `body` | `s.mdx()` | 본문 렌더 |
 | `excerpt` | `s.excerpt()` | `description` 미기재 시 자동 폴백 (§1.4) |
@@ -90,7 +89,6 @@ const posts = defineCollection({
       updated: s.isodate().optional(),
       // 자동 도출
       slug: s.slug('post'),
-      metadata: s.metadata(),   // readingTime, wordCount
       toc: s.toc(),
       excerpt: s.excerpt(),
       body: s.mdx(),
@@ -116,7 +114,6 @@ const posts = defineCollection({
 | `description`/`excerpt` | ✓ dek | — | ✓ | ✓ | ✓ |
 | `tags` | ✓ 칩 | ✓ post-tag | — | — | — |
 | `cover` | ✓ 썸네일 | ✓ 히어로 | (시리즈 cover 우선) | ✓ | — |
-| `readingTime` | ✓ 메타 | ✓ | — | — | — |
 | `toc` | — | ✓ 따라다니목차 | — | — | — |
 | `series`/`order` | (시리즈 배지) | ✓ series-nav | ✓ 순서 | — | — |
 | `draft` | 제외 | 제외 | 제외 | — | 제외 |

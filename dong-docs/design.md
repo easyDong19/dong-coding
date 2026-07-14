@@ -223,7 +223,7 @@ SVG 잎은 `<symbol>`로 한 번 정의 후 `<use>`로 재사용합니다.
 
 ### 4.2 Post Index (글 목록)
 - **구성:** index-head(eyebrow "Latest" + count "N편") · `ol.stem` · `li.post` × N
-- **`li.post` 해부:** node(잎) · title · dek(요약) · meta(time · dot · 읽기시간 · tag…)
+- **`li.post` 해부:** node(잎) · title · dek(요약) · meta(time · tag…)
 - **커버 썸네일(변형):** 포스트에 `cover`가 있으면 잎 노드 옆에 작고 차분한 썸네일(작은 radius `10px`, `--line` 헤어라인). **줄기-잎 텍스트 구조가 주(主), 썸네일은 종(從)** — 커버 없는 글과 목록 리듬이 깨지지 않도록 썸네일 자리는 고정 폭으로 예약. 집중을 해치지 않는 선에서만 노출.
 - **상태:** hover/focus 시 title이 ink → moss. 포스트 간 경계는 상단 `1px` 라인.
 - **Tag 칩:** moss 텍스트 + `--moss-soft` 배경 + pill.

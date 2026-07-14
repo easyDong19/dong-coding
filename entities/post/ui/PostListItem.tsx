@@ -33,8 +33,6 @@ export function PostListItem({ post, episode }: Props) {
         {dek ? <p className="mx-0 mt-[0.35rem] mb-[0.6rem] text-stone">{dek}</p> : null}
         <div className="flex flex-wrap items-center gap-[0.55rem] text-sm text-stone">
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span className="h-[2px] w-[2px] rounded-full bg-stone" aria-hidden="true" />
-          <span>{post.metadata.readingTime}분</span>
           {tags.map((tag) => (
             <TagChip key={tag}>{tag}</TagChip>
           ))}

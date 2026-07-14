@@ -42,8 +42,6 @@ export function PostView({
         </h1>
         <div className="mb-[1.6rem] flex flex-wrap items-center gap-x-[0.55rem] gap-y-[0.4rem] text-sm text-stone">
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span className="h-[2px] w-[2px] rounded-full bg-stone" aria-hidden="true" />
-          <span>{post.metadata.readingTime}분</span>
           {views !== null ? (
             <>
               <span className="h-[2px] w-[2px] rounded-full bg-stone" aria-hidden="true" />

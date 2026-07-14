@@ -51,9 +51,11 @@ next-env.d.ts
 
 # agent/tooling artifacts (session-local, not part of the project)
 /.agents/
-# .claude는 세션 로컬이라 무시하되, 공유 프로젝트 스킬(write-post)만 예외로 추적한다.
+# .claude는 세션 로컬이라 무시하되, 공유 프로젝트 스킬(write-post)과
+# 팀 공유 설정(settings.json — 브랜치 가드 훅 등)만 예외로 추적한다.
 # (git은 부모 폴더가 무시되면 하위를 재포함 못 하므로 경로별로 풀어준다)
 /.claude/*
+!/.claude/settings.json
 !/.claude/skills/
 /.claude/skills/*
 !/.claude/skills/write-post/

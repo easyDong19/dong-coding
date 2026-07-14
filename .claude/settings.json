@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); if [ \"$branch\" = \"main\" ] || [ \"$branch\" = \"dev\" ]; then printf '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"deny\",\"permissionDecisionReason\":\"보호 브랜치(%s)에서는 직접 편집 금지 — dev에서 <type>/<설명> 브랜치를 새로 파세요 (AGENTS.md 브랜치 규약).\"}}' \"$branch\"; fi",
+            "statusMessage": "브랜치 가드 확인 중"
+          }
+        ]
+      }
+    ]
+  }
+}

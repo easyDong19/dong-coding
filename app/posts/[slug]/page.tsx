@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { getPostBySlug, getRelated, listPublishedPosts } from "@/entities/post";
 import { getSeriesNavForPost, getSeriesDetail } from "@/entities/series";
 import { readScore } from "@/shared/views";
-import { SITE_NAME } from "@/shared/config";
+import { SITE_NAME, getSiteUrl } from "@/shared/config";
+import { JsonLd, buildArticleJsonLd } from "@/shared/seo";
 import { PostView } from "@/views/post-page/PostView";
 
 export const revalidate = 86400; // ZSCORE 신선도 — Home과 동일 (pages-plan §5)
@@ -27,6 +28,7 @@ export async function generateMetadata({
   return {
     title: post.title,
     description,
+    alternates: { canonical: `/posts/${post.slug}` }, // 중복 색인 방지 — 정규 URL 고정
     openGraph: {
       type: "article",
       siteName: SITE_NAME,
@@ -53,5 +55,20 @@ export default async function PostDetailPage({ params }: { params: Promise<{ slu
   const related = getRelated(slug);
   const views = await readScore(slug); // 실패/미설정 → null
 
-  return <PostView post={post} nav={nav} seriesTitle={seriesTitle} related={related} views={views} />;
+  const jsonLd = buildArticleJsonLd({
+    url: `${getSiteUrl()}/posts/${post.slug}`,
+    title: post.title,
+    description: post.description ?? post.excerpt,
+    datePublished: post.date,
+    dateModified: post.updated,
+    authorName: SITE_NAME,
+    siteName: SITE_NAME,
+  });
+
+  return (
+    <>
+      <JsonLd data={jsonLd} />
+      <PostView post={post} nav={nav} seriesTitle={seriesTitle} related={related} views={views} />
+    </>
+  );
 }

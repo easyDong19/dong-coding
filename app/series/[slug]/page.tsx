@@ -1,6 +1,22 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getSeriesDetail, listSeriesGrouped } from "@/entities/series";
 import { SeriesDetailView } from "@/views/series/SeriesDetailView";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const detail = getSeriesDetail(slug);
+  if (!detail) return {};
+  return {
+    title: detail.meta.title,
+    description: detail.meta.description,
+    alternates: { canonical: `/series/${slug}` },
+  };
+}
 
 // 발행 글 있는 시리즈만 프리렌더 (빈/없는 시리즈는 notFound)
 export function generateStaticParams() {

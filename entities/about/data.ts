@@ -66,6 +66,10 @@ export const aboutData: AboutData = {
           label: '경력기술서',
           href: 'https://github.com/easyDong19/easyDong19/blob/main/resume.pdf',
         },
+        {
+          label: '포트폴리오',
+          href: 'https://github.com/easyDong19/easyDong19/blob/main/portfolio.pdf',
+        },
       ],
       // 세부 이력은 경력기술서 PDF로 대체 (칩 링크).
     },

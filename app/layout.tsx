@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   alternates: {
     types: { "application/rss+xml": "/feed.xml" }, // RSS 리더 auto-discovery
   },
+  // 구글 서치 콘솔 소유권 확인 — <meta name="google-site-verification">를 <head>에 주입
+  verification: {
+    google: "ZlHFRF8aOna8vaoGcCP1yp7fB2UfkNonpHtIp2-7BK8",
+  },
   // og:image는 opengraph-image 파일 컨벤션이 자동 주입. 여기선 텍스트 필드만(사이트 기본값,
   // 글 상세는 generateMetadata에서 override). 자동 추론에 의존하지 않고 명시적으로 세팅.
   openGraph: {

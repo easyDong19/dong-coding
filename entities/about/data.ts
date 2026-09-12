@@ -51,11 +51,11 @@ export const aboutData: AboutData = {
   },
   education: [
     {
-      when: '2019–2024',
+      when: '2019.03 – 2025.02',
       what: '한양대학교 산업공학과 학사',
       note: '학점 3.87 / 4.5',
     },
-    { when: '2016–2018', what: '한국디지털미디어고등학교 해킹방어과' },
+    { when: '2016.03 – 2019.02', what: '한국디지털미디어고등학교 해킹방어과' },
   ],
   timeline: [
     {

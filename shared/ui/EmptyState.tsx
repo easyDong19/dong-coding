@@ -37,7 +37,8 @@ export function EmptyState({
       role={role}
       tabIndex={-1}
     >
-      <svg className="h-[2.2rem] w-[2.2rem] text-moss opacity-50" aria-hidden="true">
+      {/* preflight가 svg를 display:block으로 바꿔 text-center가 안 먹으므로 mx-auto로 가운데 정렬 */}
+      <svg className="mx-auto h-[2.2rem] w-[2.2rem] text-moss opacity-50" aria-hidden="true">
         <use href="#leaf" />
       </svg>
       <Eyebrow className="mt-4 mb-[0.4rem] block">{eyebrow}</Eyebrow>

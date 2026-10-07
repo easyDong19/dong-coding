@@ -59,7 +59,7 @@ export const aboutData: AboutData = {
   ],
   timeline: [
     {
-      when: '2024.07 – 현재',
+      when: '2024.07 – 2026.10',
       what: 'SAFEAI',
       links: [
         {

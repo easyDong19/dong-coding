@@ -110,11 +110,21 @@ export const aboutData: AboutData = {
       ],
     },
     {
-      title: 'eduForSori',
-      description: '기획자 친구와 협업하기 위한 지식 아티팩트 모음',
+      title: 'dongmodoro',
+      description: '주간 계획과 뽀모도로 타이머를 한 화면에 둔 macOS 앱',
       links: [
-        { label: 'GitHub', href: 'https://github.com/easyDong19/eduForSori' },
-        { label: '사이트', href: 'https://easydong19.github.io/eduForSori/' },
+        { label: 'GitHub', href: 'https://github.com/easyDong19/dongmodoro' },
+        {
+          label: '다운로드',
+          href: 'https://github.com/easyDong19/dongmodoro/releases/latest',
+        },
+      ],
+    },
+    {
+      title: 'dong-skills',
+      description: '문서 작성·데일리 스크럼·QA 리포트용 Claude Code 스킬 모음',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/easyDong19/dong-skills' },
       ],
     },
     {
